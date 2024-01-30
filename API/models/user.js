@@ -24,6 +24,7 @@ const userSchema = new mongoose.Schema(
 );
 
 const User = mongoose.model('User', userSchema);
-// User is the name of the modul and must be capital
+// User is the name of the modul and must be capital. added auto in mongodb
+
 
 export default User;
