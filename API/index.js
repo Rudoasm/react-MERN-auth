@@ -26,3 +26,16 @@ app.use("/API/user", userRoute);
 // the address to make the ai work
 // remember backend has the port of 3000. and this api route is in home page
 app.use("/API/auth", authRoute);
+
+// the middleware to handle errors rising between apis
+app.use((err, req, res, next) => {
+  const statuscode = err.statuscode || 500;
+  // shortcircuit operator.gets truthy values first.500 is the internal server error status code.(universal server eeroor statuscode
+  const message = err.message || "Internal server Error";
+
+  return res.status(statuscode).json({
+    success: false,
+    message,
+    statuscode,
+  });
+});
