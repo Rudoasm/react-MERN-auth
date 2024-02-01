@@ -17,10 +17,14 @@ export default function SignUp() {
     // should be asynchronous, cuz it should wait until data is passed. if fetch is used await is used so async is mandatory
     e.preventDefault();
     // prevents refreasing the page upon clicking submit button
-
-    setLoading(true);
-    setError(false);
-    const res = await fetch("http://localhost:3000/API/auth/signUp", formdata);
+    const res = await fetch("/API/auth/signUp", {
+      // esssentail if fetch is used instead of axios 
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formdata),
+    });
 
     const data = await res.json();
     console.log(data);
