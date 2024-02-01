@@ -8,16 +8,22 @@ export default function SignUp() {
   // initial value, an empty object
 
   const handleChange = (e) => {
-    setformdata;
-    ({ ...formdata, [e.target.id]: e.target.value});
+    setformdata({ ...formdata, [e.target.id]: e.target.value });
     // the spread operator
   };
+  console.log(formdata);
 
-  // Function to handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    // should be asynchronous, cuz it should wait until data is passed. if fetch is used await is used so async is mandatory
     e.preventDefault();
-    // Add logic to handle form submission (e.g., send data to a server)
-    console.log("Submitted:", { username, email, password });
+    // prevents refreasing the page upon clicking submit button
+
+    setLoading(true);
+    setError(false);
+    const res = await fetch("http://localhost:3000/API/auth/signUp", formdata);
+
+    const data = await res.json();
+    console.log(data);
   };
 
   return (
@@ -28,9 +34,10 @@ export default function SignUp() {
           Username:
           <input
             type="text"
-            value={username}
-            onChange={{ handleChange }}
+            onChange={handleChange}
             placeholder="username"
+            id="username"
+            // id added to fecth unique formdata and get its value
           />
         </label>
         <br />
@@ -38,9 +45,9 @@ export default function SignUp() {
           Email:
           <input
             type="email"
-            value={email}
-            onChange={{ handleChange }}
+            onChange={handleChange}
             placeholder="email"
+            id="email"
           />
         </label>
         <br />
@@ -48,9 +55,9 @@ export default function SignUp() {
           Password:
           <input
             type="password"
-            value={password}
-            onChange={{ handleChange }}
+            onChange={handleChange}
             placeholder="password"
+            id="password"
           />
         </label>
         <br />
