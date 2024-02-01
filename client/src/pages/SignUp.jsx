@@ -1,17 +1,23 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function SignUp() {
-  // State to hold form input values
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  //  form data stored in state
+
+  const [formdata, setformdata] = useState({});
+  // initial value, an empty object
+
+  const handleChange = (e) => {
+    setformdata;
+    ({ ...formdata, [e.target.id]: e.target.value});
+    // the spread operator
+  };
 
   // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     // Add logic to handle form submission (e.g., send data to a server)
-    console.log('Submitted:', { username, email, password });
+    console.log("Submitted:", { username, email, password });
   };
 
   return (
@@ -23,7 +29,8 @@ export default function SignUp() {
           <input
             type="text"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={{ handleChange }}
+            placeholder="username"
           />
         </label>
         <br />
@@ -32,7 +39,8 @@ export default function SignUp() {
           <input
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={{ handleChange }}
+            placeholder="email"
           />
         </label>
         <br />
@@ -41,7 +49,8 @@ export default function SignUp() {
           <input
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={{ handleChange }}
+            placeholder="password"
           />
         </label>
         <br />
@@ -49,8 +58,7 @@ export default function SignUp() {
       </form>
 
       <p>
-        Already have an account?{' '}
-        <Link to="/signIn">Sign In</Link>
+        Already have an account? <Link to="/signIn">Sign In</Link>
       </p>
     </div>
   );

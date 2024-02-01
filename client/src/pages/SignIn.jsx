@@ -23,6 +23,7 @@ export default function SignIn() {
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            placeholder="username"
           />
         </label>
         <br />
@@ -32,6 +33,7 @@ export default function SignIn() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            placeholder="password"
           />
         </label>
         <br />
