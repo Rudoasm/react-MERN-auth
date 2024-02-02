@@ -82,7 +82,7 @@ export default function SignUp() {
           />
         </label>
         <br />
-        <button type="submit" disabled={loading}> {loading ? 'Loading...' : 'Sign Up'}</button>
+        <button type="submit" disabled={loading}> {loading ? 'creating profile...' : 'Sign Up'}</button>
       </form>
 
       <p>

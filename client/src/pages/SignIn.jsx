@@ -20,10 +20,10 @@ export default function SignIn() {
         <label>
           Username:
           <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="username"
+            type="email"
+            onChange={handleChange}
+            placeholder="email"
+            id="email"
           />
         </label>
         <br />
@@ -31,9 +31,9 @@ export default function SignIn() {
           Password:
           <input
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handleChange}
             placeholder="password"
+            id="password"
           />
         </label>
         <br />
