@@ -2,28 +2,63 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function SignIn() {
-  // State to hold username and password
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  //  form data stored in state
 
-  // Function to handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add logic to handle form submission (e.g., authentication)
-    console.log("Submitted:", { username, password });
+  const [formdata, setformdata] = useState({});
+  // initial value, an empty object
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setformdata({ ...formdata, [e.target.id]: e.target.value });
+    // the spread operator
   };
+  console.log(formdata);
 
+  const handleSubmit = async (e) => {
+    // should be asynchronous, cuz it should wait until data is passed. if fetch is used await is used so async is mandatory
+    e.preventDefault();
+    // prevents refreasing the page upon clicking submit button
+    try {
+      setLoading(true);
+      setError(false);
+      const res = await fetch("/API/auth/signUp", {
+        // esssentail if fetch is used instead of axios 
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formdata),
+      });
+  
+      const data = await res.json();
+      console.log(data);
+    
+  
+      setLoading(false);
+      if (data.success === false) {
+        setError(true);
+        return;
+      }
+    
+    } catch (error) {
+      setLoading(false);
+      setError(true);
+    }
+  };
+    
   return (
     <div>
-      <h1>Login page</h1>
+      <h1>Sign In page</h1>
       <form onSubmit={handleSubmit}>
+        
         <label>
-          Username:
+          Email:
           <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="username"
+            type="email"
+            onChange={handleChange}
+            placeholder="email"
+            id="email"
           />
         </label>
         <br />
@@ -31,18 +66,19 @@ export default function SignIn() {
           Password:
           <input
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handleChange}
             placeholder="password"
+            id="password"
           />
         </label>
         <br />
-        <button type="submit">Login</button>
+        <button type="submit" disabled={loading}> {loading ? 'creating profile...' : 'Sign Up'}</button>
       </form>
 
       <p>
-        Don't have an account? <Link to="/signUp">Sign Up</Link>
+        Dont have an account? <Link to="/signUp">Sign Up</Link>
       </p>
+      <p className="error-msg">{error && 'Something went wrong!'}</p>
     </div>
   );
 }
