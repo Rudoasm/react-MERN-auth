@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+//  to navigate to pages upon meeting certain criteria. here to home page if credentials match
 
 export default function SignIn() {
   //  form data stored in state
@@ -8,6 +10,7 @@ export default function SignIn() {
   // initial value, an empty object
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setformdata({ ...formdata, [e.target.id]: e.target.value });
@@ -22,36 +25,33 @@ export default function SignIn() {
     try {
       setLoading(true);
       setError(false);
-      const res = await fetch("/API/auth/signUp", {
-        // esssentail if fetch is used instead of axios 
+      const res = await fetch("/API/auth/signIn", {
+        // esssentail if fetch is used instead of axios
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formdata),
       });
-  
+
       const data = await res.json();
-      console.log(data);
-    
-  
+
       setLoading(false);
       if (data.success === false) {
         setError(true);
         return;
       }
-    
+      navigate("/Home");
     } catch (error) {
       setLoading(false);
       setError(true);
     }
   };
-    
+
   return (
     <div>
       <h1>Sign In page</h1>
       <form onSubmit={handleSubmit}>
-        
         <label>
           Email:
           <input
@@ -72,13 +72,16 @@ export default function SignIn() {
           />
         </label>
         <br />
-        <button type="submit" disabled={loading}> {loading ? 'creating profile...' : 'Sign Up'}</button>
+        <button type="submit" disabled={loading}>
+          {" "}
+          {loading ? "Signing in" : "Sign in"}
+        </button>
       </form>
 
       <p>
         Dont have an account? <Link to="/signUp">Sign Up</Link>
       </p>
-      <p className="error-msg">{error && 'Something went wrong!'}</p>
+      <p className="error-msg">{error && "Something went wrong!"}</p>
     </div>
   );
 }
