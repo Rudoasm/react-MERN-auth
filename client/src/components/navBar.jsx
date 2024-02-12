@@ -9,10 +9,10 @@ export default function navBar() {
           <Link to="/Home">
             <li>Home</li>
           </Link>
-          <Link to="/">
+          <Link to="/AboutUs">
             <li>About Us</li>
           </Link>
-          <Link to="/">
+          <Link to="/Support">
             {" "}
             <li>Support</li>
           </Link>
