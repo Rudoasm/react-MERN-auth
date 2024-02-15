@@ -1,9 +1,14 @@
 import React from 'react'
+import CurrencyRow from '../components/CurrencyRow'
+import "./CurrencyConvertor.css"
 
 export default function CurrencyConvertor() {
   return (
-    <div>
-      <h1>Convert currency</h1>
+    <div className='ccMain'>
+      
+      <CurrencyRow/>
+      <div>&#8644;</div>
+      <CurrencyRow/>
     </div>
   )
 }
