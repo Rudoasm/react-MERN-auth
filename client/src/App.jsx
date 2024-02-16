@@ -9,6 +9,7 @@ import Questionairre from "./pages/Questionairre";
 import Support from "./pages/Support";
 import ItineraryGenerated from "./pages/ItineraryGenerated";
 import CurrencyConvertor from "./pages/CurrencyConvertor";
+import Map from "./pages/Map";
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
         <Route path="/Questionairre" element={<Questionairre />} />
         <Route path="/Itineraygenerated" element={<ItineraryGenerated />} />
         <Route path="/CC" element={<CurrencyConvertor />} />
+        <Route path="/Map" element={<Map />} />
       </Routes>
 
     </Router>
