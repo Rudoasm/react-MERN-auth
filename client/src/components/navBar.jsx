@@ -23,6 +23,9 @@ export default function navBar() {
             {" "}
             <li>Sign In</li>
           </Link>
+          <Link to="/Map">
+            <li>Explore</li>
+          </Link>
         </ul>
       </nav>
     </div>
