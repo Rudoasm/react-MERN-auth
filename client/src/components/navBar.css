@@ -15,3 +15,9 @@
     width: 24rem;
     padding: 50px;
 }
+.mapsearch{
+    height:40px ;
+   margin-top: 40px;
+   border-radius: 10px;
+   width: 380px;
+}

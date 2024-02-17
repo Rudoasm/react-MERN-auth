@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+
 import "./navBar.css";
 export default function navBar() {
+  const location = useLocation();
   return (
     <div className="nav">
       <nav className="navbar">
@@ -27,6 +29,9 @@ export default function navBar() {
             <li>Explore</li>
           </Link>
         </ul>
+        {location.pathname === "/Map" && (
+          <input type="text" placeholder="Explore..." className="mapsearch"/>
+        )}
       </nav>
     </div>
   );
