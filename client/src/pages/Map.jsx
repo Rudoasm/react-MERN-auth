@@ -1,9 +1,18 @@
-import React from 'react'
+import React from 'react';
+import Mapper from '../components/Mapper';
+import List from '../components/List';
+ 
+import "./Map.css";
 
 export default function Map() {
   return (
-    <div>
-      <h1>map</h1>
+    <div className="container">
+      <div className="mapper">
+        <Mapper />
+      </div>
+      <div className="list">
+        <List />
+      </div>
     </div>
-  )
+  );
 }
