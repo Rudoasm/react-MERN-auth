@@ -1,18 +1,22 @@
 .container {
-    display: grid;
-    grid-template-columns: 70% 30%;
-  }
-  
-  .mapper {
-    grid-column: 1 / span 1;
-  }
-  
-  .list {
-    grid-column: 2 / span 1;
-  }
-  .leaflet-container {
-    height: 90vh;
-    width: 90%;
-    border-radius: 2rem;
-  }
-  
+  display: grid;
+  grid-template-columns: 30% 70%; /* Adjusted column widths */
+}
+
+.mapper {
+  grid-column: 2 / span 1; /* Mapper starts from the second column */
+  width: 100%;
+}
+
+.list {
+  grid-column: 1 / span 1; /* List starts from the first column */
+  height: 500px; 
+  overflow-y: auto;
+}
+
+.leaflet-container {
+  height: 90vh;
+  width: 100%;
+  border-radius: 1rem;
+
+}
