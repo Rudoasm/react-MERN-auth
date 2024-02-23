@@ -34,9 +34,11 @@ export default function Mapper({  coords, setCoords, setBounds, places  }) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {places.map((place, i) => (
-          <Marker key={i} position={[place.latitude, place.longitude]}>
-            <Popup>{place.name}</Popup>
-          </Marker>
+          place.latitude && place.longitude ? (
+            <Marker key={i} position={[place.latitude, place.longitude]}>
+              <Popup>{place.name}</Popup>
+            </Marker>
+          ) : null
         ))}
       </MapContainer>
     </div>
