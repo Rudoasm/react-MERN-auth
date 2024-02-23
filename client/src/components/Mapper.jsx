@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Marker, Popup } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, useMapEvents, useMap } from "react-leaflet";
 
@@ -12,7 +13,7 @@ function SetViewOnClick({ coords }) {
   return null;
 }
 
-export default function Mapper({ coords, setCoords, setBounds }) {
+export default function Mapper({  coords, setCoords, setBounds, places  }) {
   const MapEvents = () => {
     const map = useMapEvents({
       moveend: () => {
@@ -32,6 +33,11 @@ export default function Mapper({ coords, setCoords, setBounds }) {
           attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        {places.map((place, i) => (
+          <Marker key={i} position={[place.latitude, place.longitude]}>
+            <Popup>{place.name}</Popup>
+          </Marker>
+        ))}
       </MapContainer>
     </div>
   );

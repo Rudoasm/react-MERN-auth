@@ -39,7 +39,7 @@ export default function Map() {
     console.log("useEffect running");
     console.log("coords:", coords);
     console.log("bounds:", bounds);
-
+  
     // Check if coords and bounds are defined
     if (
       coords &&
@@ -52,26 +52,50 @@ export default function Map() {
       bounds.ne.lng
     ) {
       console.log("Making API call");
-      getPlaceData(bounds.sw, bounds.ne)
-        .then((data) => {
-          console.log("API call successful, data:", data);
+      getplacedata(bounds.sw, bounds.ne)
+      .then((data) => {
+        console.log("API call successful, data:", data);
+        if (Array.isArray(data)) {
           setPlaces(data);
-        })
-        .catch((error) => {
-          console.error("Error fetching place data:", error);
-        });
+        } else {
+          console.error("Data is not an array:", data);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching place data:", error);
+      });
+    
+    } else {
+      console.log("Not making API call because condition is not met");
+      console.log("coords:", coords);
+      console.log("bounds:", bounds);
     }
   }, [coords, bounds]);
+  
+  // Add this useEffect to update bounds when coords change
+  useEffect(() => {
+    if (coords) {
+      setBounds({
+        sw: { lat: coords.lat - 0.01, lng: coords.lng - 0.01 },
+        ne: { lat: coords.lat + 0.01, lng: coords.lng + 0.01 },
+      });
+    }
+  }, [coords]);
+  
 
   return (
     <div className="container">
       <button onClick={getLocation}>Find near me</button>
       <div className="list">
-        <List />
+        <List places={places}/>
       </div>
       <div className="mapper">
-        <Mapper setBounds={setBounds} setCoords={setCoords} coords={coords} />
+        {coords ? (
+          <Mapper setBounds={setBounds} setCoords={setCoords} coords={coords}  places={places}/>
+        ) : (
+          <p>Getting location...</p>
+        )}
       </div>
     </div>
   );
-}
+        }  

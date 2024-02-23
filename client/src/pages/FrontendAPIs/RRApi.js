@@ -21,7 +21,7 @@ const url =
         },
       });
       console.log('API Response:', response); // Log the entire response
-      return response.data;
+      return response.data.data; // Return the 'data' property of the response data
     } catch (error) {
       console.error('Error in API call:', error);
     }

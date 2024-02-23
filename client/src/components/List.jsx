@@ -2,20 +2,15 @@ import React, { useState } from 'react';
 import PlaceDetails from './PlaceDetails';
 import "./List.css";
 
-const List = () => {
+const List = ({places}) => {
   const [type, setType] = useState('restaurants');
   const [rating, setRating] = useState('');
-  const places = [
-    { name: "Cool place" },
-    { name: "Best beer" },
-    { name: "Best steak" },
-    { name: "Cool place" },
-    { name: "Best beer" },
-    { name: "Best steak" },
-    { name: "Cool place" },
-    { name: "Best beer" },
-    { name: "Best steak" }
-  ];
+  
+  if (!Array.isArray(places)) {
+    console.error("Places is not an array:", places);
+    return null; // or return a loading spinner, error message, etc.
+  }
+
 
   return (
     <div className="container">
