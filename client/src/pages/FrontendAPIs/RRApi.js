@@ -16,8 +16,8 @@ const url =
           tr_longitude: ne.lng,
         },
         headers: {
-          "X-RapidAPI-Key": "99fa5699c3msh8bc73730a13ed9cp1c5518jsn3eff5e9368d8",
-          "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com",
+          'X-RapidAPI-Key': '614defb7e8msh31f3df93bb638adp13cd1ejsn365b61f6df15',
+          'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com',
         },
       });
       console.log('API Response:', response); // Log the entire response
