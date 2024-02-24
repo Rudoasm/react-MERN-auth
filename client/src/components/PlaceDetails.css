@@ -44,3 +44,14 @@
     text-decoration: none;
   }
   
+  .card-cuisine {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    font-size: 14px;
+    color: #000;
+  }
+  

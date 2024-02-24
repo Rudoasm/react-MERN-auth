@@ -1,5 +1,6 @@
 import React from "react";
 import "./PlaceDetails.css";
+import { AiOutlineHome, AiOutlinePhone } from 'react-icons/ai';
 
 const PlaceDetails = ({ place, selected, refProp }) => {
   if (selected)
@@ -24,26 +25,15 @@ const PlaceDetails = ({ place, selected, refProp }) => {
         </div>
         <div className="card-price">Price: {place.price_level}</div>
         <div className="card-ranking">Ranking: {place.ranking}</div>
-        {place?.awards?.map((award) => (
-          <div className="card-award">
-            <img src={award.images.small} alt={award.display_name} />
-            <span>{award.display_name}</span>
-          </div>
+       
+           {place?.cuisine?.map(({ name }) => (
+          <span className="card-cuisine">
+            {name.replace(/([A-Z])/g, " $1").trim()}
+          </span>
         ))}
-        {place?.cuisine?.map(({ name }, index, self) => {
-          let newName = name.replace(/([A-Z][a-z]+)/g, ", $1").trim();
-          if (newName.startsWith(',')) {
-            newName = newName.slice(1).trim();
-          }
-          return (
-            <span className="card-cuisine" key={index}>
-              Cuisines: {newName}{index !== self.length - 1 ? ', ' : ''}
-            </span>
-          );
-        })}
 
-        {place.address && <div className="card-address">Address: {place.address}</div>}
-        {place.phone && <div className="card-phone">Contact: {place.phone}</div>}
+{place.address && <div className="card-address"><AiOutlineHome /> {place.address}</div>}
+{place.phone && <div className="card-phone"><AiOutlinePhone /> {place.phone}</div>}
         <div className="card-actions">
           <a href={place.web_url} target="_blank" rel="noopener noreferrer">
             learn more...

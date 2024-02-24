@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { Marker, Popup } from 'react-leaflet';
+import { Marker, Popup, useMapEvents, useMap } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
-import { MapContainer, TileLayer, useMapEvents, useMap } from "react-leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
 
 function SetViewOnClick({ coords }) {
   const map = useMap();
@@ -13,7 +13,23 @@ function SetViewOnClick({ coords }) {
   return null;
 }
 
-export default function Mapper({  coords, setCoords, setBounds, places  }) {
+function UpdateBounds({ setBounds }) {
+  const map = useMap();
+
+  useEffect(() => {
+    map.on('moveend', () => {
+      const bounds = map.getBounds();
+      setBounds({
+        ne: bounds.getNorthEast(),
+        sw: bounds.getSouthWest(),
+      });
+    });
+  }, [map, setBounds]);
+
+  return null;
+}
+
+export default function Mapper({ coords, setCoords, setBounds, places }) {
   const MapEvents = () => {
     const map = useMapEvents({
       moveend: () => {
@@ -29,6 +45,7 @@ export default function Mapper({  coords, setCoords, setBounds, places  }) {
       <MapContainer center={coords} zoom={13}>
         <SetViewOnClick coords={coords} />
         <MapEvents />
+        <UpdateBounds setBounds={setBounds} />
         <TileLayer
           attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
