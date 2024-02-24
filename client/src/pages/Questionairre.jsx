@@ -44,15 +44,23 @@ function Questionnaire() {
         />
       </div>
       <div>
-        <label htmlFor="ageCategory">Age Category:</label>
-        <input
-          type="text"
+        <label htmlFor="ageCategory">Type of Trip</label>
+        <select
           id="ageCategory"
           name="ageCategory"
           value={formData.ageCategory}
           onChange={handleChange}
-        />
+        >
+          <option value="Fun and Friends">Fun and Friends</option>
+          <option value="Religious">Religious</option>
+          <option value="Family">Family</option>
+
+          <option value="Educational">Educational</option>
+          <option value="Leisure">Leisure</option>
+          <option value="Solo">Solo</option>
+        </select>
       </div>
+
       <div>
         <label htmlFor="timeFrame">Time Frame:</label>
         <input

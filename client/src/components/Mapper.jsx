@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { Marker, Popup, useMapEvents, useMap } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer } from "react-leaflet";
+import MarkerClusterGroup from "react-leaflet-markercluster";
+
 
 function SetViewOnClick({ coords }) {
   const map = useMap();
@@ -50,6 +52,7 @@ export default function Mapper({ coords, setCoords, setBounds, places }) {
           attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        
         {places.map((place, i) => (
           place.latitude && place.longitude ? (
             <Marker key={i} position={[place.latitude, place.longitude]}>

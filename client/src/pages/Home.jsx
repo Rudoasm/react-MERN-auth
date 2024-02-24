@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./Home.css"
 
 export default function home() {
   return (
     <div className="home-body">
       <button className="content-btn btn">Existing Itineraries </button>
-      <div className="content">
+      <div className="content-main">
         <h2>RoamRoutely</h2>
         <div className="sub-content">
           <div className="sub-content-1 inner-cont">

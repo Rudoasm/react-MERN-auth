@@ -1,20 +1,21 @@
 import React from "react";
+import "./Landing.css";
 
-export default function landing() {
+export default function Landing() {
   return (
-    <div>
-      <h1>Welcome to RoamRoutely</h1>
-      <p>
-        RoamRoutely is a Itinerary generating web application which allows users
-        to enter a location and the application will provide a personalized
-        Itinerary based on a questionaire.
+    <div className="bg">
+      <h1 className="Title">Welcome to RoamRoutely</h1>
+
+      <p className="content">
+        RoamRoutely is an travel itinerary generating web application which
+        allows users to enter a location and the application will provide a
+        personalized itinerary based on a questionnaire.
       </p>
-      <br />
-      <p>
-        using the questionaire the application gets information relevant to the
-        user's travelling interests. Based on the given inputs the application
-        will provide the user a personalized Itinerary including a schedule, for
-        the user on ways how to spendf the vacation.
+      <p className="content">
+        Using the questionnaire the application gets information relevant to the
+        users traveling interests. Based on the given inputs the application
+        will provide the user a personalized itinerary including a schedule, for
+        the user on ways how to spend the vacation.
       </p>
     </div>
   );
