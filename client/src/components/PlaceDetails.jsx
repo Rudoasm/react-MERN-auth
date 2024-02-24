@@ -12,7 +12,7 @@ const PlaceDetails = ({ place, selected, refProp }) => {
         src={
           place.photo
             ? place.photo.images.large.url
-            : "https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg"
+            : "https://img.freepik.com/free-vector/neon-icon-dish_1262-15632.jpg?w=740&t=st=1708764919~exp=1708765519~hmac=801be7948fa81ea3fd10049f3d8b9364a626211b7212d677c6da6286d144567b" // if no image posted at hotel/restraunt
         }
         alt={place.name}
       />
@@ -30,11 +30,20 @@ const PlaceDetails = ({ place, selected, refProp }) => {
             <span>{award.display_name}</span>
           </div>
         ))}
-        {place?.cuisine?.map(({ name }) => (
-          <span className="card-cuisine">{name}</span>
-        ))}
-        {place.address && <div className="card-address">{place.address}</div>}
-        {place.phone && <div className="card-phone">{place.phone}</div>}
+        {place?.cuisine?.map(({ name }, index, self) => {
+          let newName = name.replace(/([A-Z][a-z]+)/g, ", $1").trim();
+          if (newName.startsWith(',')) {
+            newName = newName.slice(1).trim();
+          }
+          return (
+            <span className="card-cuisine" key={index}>
+              Cuisines: {newName}{index !== self.length - 1 ? ', ' : ''}
+            </span>
+          );
+        })}
+
+        {place.address && <div className="card-address">Address: {place.address}</div>}
+        {place.phone && <div className="card-phone">Contact: {place.phone}</div>}
         <div className="card-actions">
           <a href={place.web_url} target="_blank" rel="noopener noreferrer">
             learn more...

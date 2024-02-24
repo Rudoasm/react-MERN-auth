@@ -1,12 +1,14 @@
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
-  width: 100%;
+  width: 80%;
 }
 
 .card-img {
-  height: 350px;
-  width: 100%;
+  height: 300px;
+  width: 80%;
+  margin: 20px;
+  border-radius: 20px;
 }
 
 .card-content {
@@ -16,15 +18,9 @@
 .card-title {
   margin-bottom: 16px;
 }
-.card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    width: 100%;
-  }
+
   
-  .card-title {
-    margin-bottom: 16px;
-  }
+
   
   .card-rating,
   .card-reviews,
@@ -40,6 +36,7 @@
   .card-actions {
     display: flex;
     justify-content: space-between;
+    padding: 30px;
   }
   
   .card-actions a {
