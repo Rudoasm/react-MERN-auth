@@ -9,6 +9,7 @@ export default function Map() {
   const [places, setPlaces] = useState([]);
   const [coords, setCoords] = useState(null); // Initialize to null
   const [loading, setLoading] = useState(true); // Add loading state
+  const [childClicked, setChildClicked] = useState(null);
 
   const [bounds, setBounds] = useState({
     sw: { lat: 0, lng: 0 },
@@ -89,7 +90,7 @@ export default function Map() {
     <div className="container">
       <button onClick={getLocation}>Find near me</button>
       <div className="list">
-        <List places={places} className="places"/>
+        <List places={places} childClicked={childClicked} className="places" />
       </div>
       <div className="mapper">
         {loading ? (
@@ -100,6 +101,8 @@ export default function Map() {
             setCoords={setCoords}
             coords={coords}
             places={places}
+            childClicked={childClicked}
+            setChildClicked={setChildClicked}
           />
         ) : (
           <p>

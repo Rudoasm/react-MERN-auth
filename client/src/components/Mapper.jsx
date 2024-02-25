@@ -1,23 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Marker, Popup, useMapEvents, useMap } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer } from "react-leaflet";
-import MarkerClusterGroup from "react-leaflet-markercluster";
-
 
 function SetViewOnClick({ coords }) {
   const map = useMap();
-
   useEffect(() => {
     map.setView(coords);
   }, [coords, map]);
-
   return null;
 }
 
 function UpdateBounds({ setBounds }) {
   const map = useMap();
-
   useEffect(() => {
     map.on('moveend', () => {
       const bounds = map.getBounds();
@@ -27,11 +22,10 @@ function UpdateBounds({ setBounds }) {
       });
     });
   }, [map, setBounds]);
-
   return null;
 }
 
-export default function Mapper({ coords, setCoords, setBounds, places }) {
+export default function Mapper({ coords, setCoords, setBounds, places, childClicked, setChildClicked }) {
   const MapEvents = () => {
     const map = useMapEvents({
       moveend: () => {
@@ -52,10 +46,9 @@ export default function Mapper({ coords, setCoords, setBounds, places }) {
           attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        
         {places.map((place, i) => (
           place.latitude && place.longitude ? (
-            <Marker key={i} position={[place.latitude, place.longitude]}>
+            <Marker key={i} position={[place.latitude, place.longitude]} eventHandlers={{ click: () => setChildClicked(i) }}>
               <Popup>{place.name}</Popup>
             </Marker>
           ) : null
