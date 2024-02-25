@@ -10,7 +10,7 @@ export default function Map() {
   const [coords, setCoords] = useState(null); // Initialize to null
   const [loading, setLoading] = useState(true); // Add loading state
   const [childClicked, setChildClicked] = useState(null);
-
+  // const [isloading, setisLoading] = useState(false); 
   const [bounds, setBounds] = useState({
     sw: { lat: 0, lng: 0 },
     ne: { lat: 0, lng: 0 },
@@ -41,6 +41,7 @@ export default function Map() {
   };
 
   useEffect(() => {
+   
     console.log("useEffect running");
     console.log("coords:", coords);
     console.log("bounds:", bounds);
@@ -62,6 +63,7 @@ export default function Map() {
           console.log("API call successful, data:", data);
           if (Array.isArray(data)) {
             setPlaces(data);
+           
           } else {
             console.error("Data is not an array:", data);
           }

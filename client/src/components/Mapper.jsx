@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Marker, Popup, useMapEvents, useMap } from 'react-leaflet';
+import { Marker, Popup, useMapEvents, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer } from "react-leaflet";
+import L from "leaflet";
+import "leaflet.markercluster/dist/leaflet.markercluster";
+import "leaflet.markercluster/dist/MarkerCluster.css";
+import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 
 function SetViewOnClick({ coords }) {
   const map = useMap();
@@ -14,7 +18,7 @@ function SetViewOnClick({ coords }) {
 function UpdateBounds({ setBounds }) {
   const map = useMap();
   useEffect(() => {
-    map.on('moveend', () => {
+    map.on("moveend", () => {
       const bounds = map.getBounds();
       setBounds({
         ne: bounds.getNorthEast(),
@@ -25,7 +29,14 @@ function UpdateBounds({ setBounds }) {
   return null;
 }
 
-export default function Mapper({ coords, setCoords, setBounds, places, childClicked, setChildClicked }) {
+export default function Mapper({
+  coords,
+  setCoords,
+  setBounds,
+  places,
+  childClicked,
+  setChildClicked,
+}) {
   const MapEvents = () => {
     const map = useMapEvents({
       moveend: () => {
@@ -36,6 +47,28 @@ export default function Mapper({ coords, setCoords, setBounds, places, childClic
     return null;
   };
 
+  function MarkerCluster({ places }) {
+    const map = useMap();
+
+    useEffect(() => {
+      const markerClusterGroup = L.markerClusterGroup();
+      places.forEach((place, i) => {
+        if (place.latitude && place.longitude) {
+          const marker = L.marker([place.latitude, place.longitude]).bindPopup(
+            place.name
+          );
+          markerClusterGroup.addLayer(marker);
+        }
+      });
+      map.addLayer(markerClusterGroup);
+
+      return () => {
+        map.removeLayer(markerClusterGroup);
+      };
+    }, [map, places]);
+
+    return null;
+  }
   return (
     <div style={{ height: "400px", width: "100%" }}>
       <MapContainer center={coords} zoom={13}>
@@ -46,13 +79,19 @@ export default function Mapper({ coords, setCoords, setBounds, places, childClic
           attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {places.map((place, i) => (
+
+        {places.map((place, i) =>
           place.latitude && place.longitude ? (
-            <Marker key={i} position={[place.latitude, place.longitude]} eventHandlers={{ click: () => setChildClicked(i) }}>
+            <Marker
+              key={i}
+              position={[place.latitude, place.longitude]}
+              eventHandlers={{ click: () => setChildClicked(i) }}
+            >
               <Popup>{place.name}</Popup>
             </Marker>
           ) : null
-        ))}
+        )}
+        <MarkerCluster places={places} />
       </MapContainer>
     </div>
   );
