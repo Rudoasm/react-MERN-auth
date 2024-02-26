@@ -2,9 +2,8 @@ import React, { useState, useEffect, createRef } from "react";
 import PlaceDetails from "./PlaceDetails";
 import "./List.css";
 
-const List = ({ places, childClicked }) => {
-  const [type, setType] = useState("restaurants");
-  const [rating, setRating] = useState("");
+const List = ({ places, childClicked , type, setType, rating, setRating,}) => {
+  
   const [elRefs, setElRefs] = useState([]);
   console.log({ childClicked });
 

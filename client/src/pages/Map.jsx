@@ -10,7 +10,9 @@ export default function Map() {
   const [coords, setCoords] = useState(null); // Initialize to null
   const [loading, setLoading] = useState(true); // Add loading state
   const [childClicked, setChildClicked] = useState(null);
-  // const [isloading, setisLoading] = useState(false); 
+
+  const [type, setType] = useState("restaurants");
+  const [rating, setRating] = useState("");
   const [bounds, setBounds] = useState({
     sw: { lat: 0, lng: 0 },
     ne: { lat: 0, lng: 0 },
@@ -41,7 +43,6 @@ export default function Map() {
   };
 
   useEffect(() => {
-   
     console.log("useEffect running");
     console.log("coords:", coords);
     console.log("bounds:", bounds);
@@ -58,12 +59,11 @@ export default function Map() {
       bounds.ne.lng
     ) {
       console.log("Making API call");
-      getplacedata(bounds.sw, bounds.ne)
+      getplacedata(type, bounds.sw, bounds.ne)
         .then((data) => {
           console.log("API call successful, data:", data);
           if (Array.isArray(data)) {
             setPlaces(data);
-           
           } else {
             console.error("Data is not an array:", data);
           }
@@ -76,7 +76,7 @@ export default function Map() {
       console.log("coords:", coords);
       console.log("bounds:", bounds);
     }
-  }, [coords, bounds]);
+  }, [type, coords, bounds]);
 
   // Add this useEffect to update bounds when coords change
   useEffect(() => {
@@ -92,7 +92,15 @@ export default function Map() {
     <div className="container">
       <button onClick={getLocation}>Find near me</button>
       <div className="list">
-        <List places={places} childClicked={childClicked} className="places" />
+        <List
+          places={places}
+          childClicked={childClicked}
+          type={type}
+          setType={setType}
+          rating={rating}
+          setRating={setRating}
+          className="places"
+        />
       </div>
       <div className="mapper">
         {loading ? (
