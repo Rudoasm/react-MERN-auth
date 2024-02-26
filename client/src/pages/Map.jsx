@@ -10,7 +10,7 @@ export default function Map() {
   const [coords, setCoords] = useState(null); // Initialize to null
   const [loading, setLoading] = useState(true); // Add loading state
   const [childClicked, setChildClicked] = useState(null);
-
+  const [filteredPlaces, setFilteredPlaces] = useState([]);
   const [type, setType] = useState("restaurants");
   const [rating, setRating] = useState("");
   const [bounds, setBounds] = useState({
@@ -64,6 +64,7 @@ export default function Map() {
           console.log("API call successful, data:", data);
           if (Array.isArray(data)) {
             setPlaces(data);
+            setFilteredPlaces([]);
           } else {
             console.error("Data is not an array:", data);
           }
@@ -88,12 +89,18 @@ export default function Map() {
     }
   }, [coords]);
 
+  useEffect(() => {
+    const filtered = places.filter((place) => Number(place.rating) > rating);
+
+    setFilteredPlaces(filteredPlaces);
+  }, [rating]);
+
   return (
     <div className="container">
       <button onClick={getLocation}>Find near me</button>
       <div className="list">
         <List
-          places={places}
+          places={filteredPlaces.length ? filteredPlaces : places}
           childClicked={childClicked}
           type={type}
           setType={setType}
@@ -110,7 +117,7 @@ export default function Map() {
             setBounds={setBounds}
             setCoords={setCoords}
             coords={coords}
-            places={places}
+            places={filteredPlaces.length ? filteredPlaces : places}
             childClicked={childClicked}
             setChildClicked={setChildClicked}
           />
