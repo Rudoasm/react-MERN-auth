@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Mapper from "../components/Mapper";
 import List from "../components/List";
-import { getplacedata } from "./FrontendAPIs/RRApi";
+import { getplacedata, getWeatherData } from "./FrontendAPIs/RRApi";
 
 import "./Map.css";
 
@@ -13,10 +13,12 @@ export default function Map() {
   const [filteredPlaces, setFilteredPlaces] = useState([]);
   const [type, setType] = useState("restaurants");
   const [rating, setRating] = useState("");
+  const [weatherData, setWeatherData] = useState([]);
   const [bounds, setBounds] = useState({
     sw: { lat: 0, lng: 0 },
     ne: { lat: 0, lng: 0 },
   });
+
 
   const getLocation = () => {
     if (!navigator.geolocation) {
@@ -59,6 +61,9 @@ export default function Map() {
       bounds.ne.lng
     ) {
       console.log("Making API call");
+      getWeatherData(coords.lat, coords.lng).then((data) =>
+        setWeatherData(data)
+      );
       getplacedata(type, bounds.sw, bounds.ne)
         .then((data) => {
           console.log("API call successful, data:", data);
@@ -90,10 +95,16 @@ export default function Map() {
   }, [coords]);
 
   useEffect(() => {
-    const filtered = places.filter((place) => Number(place.rating) > rating);
+    let filteredPlaces = places;
+
+    if (rating) {
+      filteredPlaces = places.filter(
+        (place) => Number(place.rating) > Number(rating)
+      );
+    }
 
     setFilteredPlaces(filteredPlaces);
-  }, [rating]);
+  }, [rating, places]); // Add 'places' as a dependency
 
   return (
     <div className="container">
@@ -120,6 +131,7 @@ export default function Map() {
             places={filteredPlaces.length ? filteredPlaces : places}
             childClicked={childClicked}
             setChildClicked={setChildClicked}
+            // weatherData={weatherData}
           />
         ) : (
           <p>
