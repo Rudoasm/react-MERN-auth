@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Mapper from "../components/Mapper";
 import List from "../components/List";
-import { getplacedata, getWeatherData } from "./FrontendAPIs/RRApi";
+import { getplacedata } from "./FrontendAPIs/RRApi";
 
 import "./Map.css";
 
@@ -13,7 +13,7 @@ export default function Map() {
   const [filteredPlaces, setFilteredPlaces] = useState([]);
   const [type, setType] = useState("restaurants");
   const [rating, setRating] = useState("");
-  const [weatherData, setWeatherData] = useState([]);
+  // const [weatherData, setWeatherData] = useState([]);
   const [bounds, setBounds] = useState({
     sw: { lat: 0, lng: 0 },
     ne: { lat: 0, lng: 0 },
@@ -61,9 +61,9 @@ export default function Map() {
       bounds.ne.lng
     ) {
       console.log("Making API call");
-      getWeatherData(coords.lat, coords.lng).then((data) =>
-        setWeatherData(data)
-      );
+      // getWeatherData(coords.lat, coords.lng).then((data) =>
+      //   setWeatherData(data)
+      // );
       getplacedata(type, bounds.sw, bounds.ne)
         .then((data) => {
           console.log("API call successful, data:", data);

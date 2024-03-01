@@ -15,7 +15,7 @@ export const getplacedata = async (type, sw, ne) => {
         },
         headers: {
           "X-RapidAPI-Key":
-            "614defb7e8msh31f3df93bb638adp13cd1ejsn365b61f6df15",
+            "ba06641a90msh92b104e75070e1cp15f5ccjsnb0c2938337c7",
           "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com",
         },
       }
@@ -27,20 +27,20 @@ export const getplacedata = async (type, sw, ne) => {
   }
 };
 
-export const getWeatherData = async (lat, lng) => {
-  try {
-    if (lat && lng) {
-      const { data } = await axios.get('https://open-weather-map27.p.rapidapi.com/weather', {
-        params: { lat:lat , lon: lng },
-        headers: {
-          'X-RapidAPI-Key': '99fa5699c3msh8bc73730a13ed9cp1c5518jsn3eff5e9368d8',
-          'X-RapidAPI-Host': 'open-weather-map27.p.rapidapi.com'
-        },
-      });
+// export const getWeatherData = async (lat, lng) => {
+//   try {
+//     if (lat && lng) {
+//       const { data } = await axios.get('https://open-weather-map27.p.rapidapi.com/weather', {
+//         params: { lat:lat , lon: lng },
+//         headers: {
+//           'X-RapidAPI-Key': '99fa5699c3msh8bc73730a13ed9cp1c5518jsn3eff5e9368d8',
+//           'X-RapidAPI-Host': 'open-weather-map27.p.rapidapi.com'
+//         },
+//       });
 
-      return data;
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
+//       return data;
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
