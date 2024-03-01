@@ -1,6 +1,7 @@
 import axios from "axios";
 
 // copied from rapidapi and modified as needed
+const api_key="b696e77f13c812a5dddd5b7f2cddfebf";
 
 export const getplacedata = async (type, sw, ne) => {
   try {
