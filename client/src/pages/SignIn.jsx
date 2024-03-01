@@ -1,32 +1,22 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-//  to navigate to pages upon meeting certain criteria. here to home page if credentials match
-
 export default function SignIn() {
-  //  form data stored in state
-
   const [formdata, setformdata] = useState({});
-  // initial value, an empty object
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setformdata({ ...formdata, [e.target.id]: e.target.value });
-    // the spread operator
   };
-  console.log(formdata);
 
   const handleSubmit = async (e) => {
-    // should be asynchronous, cuz it should wait until data is passed. if fetch is used await is used so async is mandatory
     e.preventDefault();
-    // prevents refreasing the page upon clicking submit button
     try {
       setLoading(true);
       setError(false);
       const res = await fetch("/API/auth/signIn", {
-        // esssentail if fetch is used instead of axios
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -41,6 +31,10 @@ export default function SignIn() {
         setError(true);
         return;
       }
+
+      // Set isSignedIn to true in localStorage when sign in is successful
+      localStorage.setItem("isSignedIn", "true");
+
       navigate("/Home");
     } catch (error) {
       setLoading(false);

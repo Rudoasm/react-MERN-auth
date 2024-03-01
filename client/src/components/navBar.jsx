@@ -3,16 +3,15 @@ import { Link, useLocation } from "react-router-dom";
 import "./navBar.css";
 export default function navBar() {
   const location = useLocation();
-  const isLandingPage = location.pathname === "/";
+  const isSignedIn = localStorage.getItem("isSignedIn") === "true"; // Add this line
 
   return (
     <div className="nav">
       <nav className="navbar">
         <img src="../public/images/logo.jpg" alt="logo" className="logo"></img>
         <ul className="nav-link">
-          {isLandingPage ? (
+          {!isSignedIn ? (
             <>
-              
               <Link to="/AboutUs">
                 <li>About Us</li>
               </Link>
