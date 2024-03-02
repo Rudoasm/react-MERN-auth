@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./Support.css"
 
 export default function Support() {
   const [query, setQuery] = useState("");
@@ -9,11 +10,9 @@ export default function Support() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //  implementation of the  logic is still in work, to send the email here
-    // For example, using a backend service like Nodemailer or by triggering the user's email client
-    // For demonstration purposes, we're logging the query to the console
-    console.log("Query:", query);
-    //  the input field should be cleared after submitting
+       // Open the user's email client with a new email pre-filled with the query
+    window.location.href = `mailto:elrudoasm@gmail.com?subject=Support Query&body=${encodeURIComponent(query)}`;
+    // To Clear the input field after submitting
     setQuery("");
   };
 
@@ -22,6 +21,7 @@ export default function Support() {
       <h3>Write your queries to us</h3>
       <form onSubmit={handleSubmit}>
         <textarea
+          className="textarea"
           value={query}
           onChange={handleInputChange}
           placeholder="Type your query here..."

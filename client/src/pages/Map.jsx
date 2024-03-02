@@ -122,7 +122,7 @@ export default function Map() {
       </div>
       <div className="mapper">
         {loading ? (
-          <p>Getting location...</p>
+          <p></p>
         ) : coords ? (
           <Mapper
             setBounds={setBounds}

@@ -21,3 +21,8 @@
    border-radius: 10px;
    width: 380px;
 }
+.signout{
+    border-radius: 20px;
+    background-color: red;
+    padding: 0 10px;
+}
