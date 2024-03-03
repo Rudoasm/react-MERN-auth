@@ -79,7 +79,7 @@ export default function SignIn() {
       <p>
         Dont have an account? <Link to="/signUp">Sign Up</Link>
       </p>
-      <p className="error-msg">{error ? error || "Something went wrong!" : ""}</p>
+      <p className="error-msg">{error ? error.message || "Something went wrong!" : ""}</p>
     </div>
   );
 }
