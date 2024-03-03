@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./SignIn.css"
+import "./SignIn.css";
 import {
   signInStart,
   signInSuccess,
   signInFailure,
-} from '../redux/User/userSlice';
-import { useDispatch, useSelector } from 'react-redux';
+} from "../redux/User/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function SignIn() {
   const [formdata, setformdata] = useState({});
@@ -32,15 +32,17 @@ export default function SignIn() {
 
       const data = await res.json();
 
-    
       if (data.success === false) {
         dispatch(signInFailure(data));
         return;
       }
+      //to refresh the page
 
       // Set isSignedIn to true in localStorage when sign in is successful
       dispatch(signInSuccess(data));
       navigate("/Home");
+      localStorage.setItem("isSignedIn", "true");
+      window.location.reload();
     } catch (error) {
       dispatch(signInFailure(error));
     }
@@ -79,7 +81,9 @@ export default function SignIn() {
       <p>
         Dont have an account? <Link to="/signUp">Sign Up</Link>
       </p>
-      <p className="error-msg">{error ? error.message || "Something went wrong!" : ""}</p>
+      <p className="error-msg">
+        {error ? error.message || "Something went wrong!" : ""}
+      </p>
     </div>
   );
 }
