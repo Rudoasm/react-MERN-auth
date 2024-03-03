@@ -4,6 +4,7 @@ import axios from "axios";
 const api_key="b696e77f13c812a5dddd5b7f2cddfebf";
 // https://api.openweathermap.org/data/2.5/weather?q=paris&appid=b696e77f13c812a5dddd5b7f2cddfebf
 
+// https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid=b696e77f13c812a5dddd5b7f2cddfebf
 export const getplacedata = async (type, sw, ne) => {
   try {
     const response = await axios.get(

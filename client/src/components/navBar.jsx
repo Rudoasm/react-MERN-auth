@@ -4,12 +4,23 @@ import "./navbar.css";
 
 export default function NavBar() {
   const location = useLocation();
-  const isSignedIn = localStorage.getItem("isSignedIn") === "true";
+  const isSignedIn = localStorage.getItem("isSignedIn") === "false";
 
-  const handleSignOut = () => {
-    localStorage.setItem("isSignedIn", "false");
-    window.location.reload(); // Refresh the page to reflect the changes
+  const handleSignOut = async () => {
+    try {
+      const response = await fetch("/API/controllers/authController/signout");
+      if (response.ok) {
+        console.log("Signout successful!");
+        localStorage.setItem("isSignedIn", "true");
+        window.location.reload(); // This will refresh the page and update the navbar
+      } else {
+        console.log("Signout failed!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
+  
 
   return (
     <div className="nav">
@@ -45,7 +56,9 @@ export default function NavBar() {
               <Link to="/Map">
                 <li>Explore</li>
               </Link>
-              <li onClick={handleSignOut} className="signout">Sign Out</li>
+              <li onClick={handleSignOut} className="signout">
+                Sign Out
+              </li>
             </>
           )}
         </ul>
