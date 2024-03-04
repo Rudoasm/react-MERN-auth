@@ -36,7 +36,7 @@ export default function Mapper({
   places,
   childClicked,
   setChildClicked,
-  // weatherData,
+  weatherData,
 }) {
   const MapEvents = () => {
     const map = useMapEvents({
@@ -94,6 +94,11 @@ export default function Mapper({
         )}
         <MarkerCluster places={places} />
      
+        {weatherData?.list?.length && weatherData.list.map((data, i) => (
+          <div key={i} lat={data.coord.lat} lng={data.coord.lon}>
+            <img src={`http://openweathermap.org/img/w/${data.weather[0].icon}.png`} height="70px" />
+          </div>
+        ))}
       </MapContainer>
     </div>
   );

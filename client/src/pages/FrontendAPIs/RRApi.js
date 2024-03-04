@@ -30,20 +30,13 @@ export const getplacedata = async (type, sw, ne) => {
   }
 };
 
-// export const getWeatherData = async (lat, lng) => {
-//   try {
-//     if (lat && lng) {
-//       const { data } = await axios.get('https://open-weather-map27.p.rapidapi.com/weather', {
-//         params: { lat:lat , lon: lng },
-//         headers: {
-//           'X-RapidAPI-Key': '99fa5699c3msh8bc73730a13ed9cp1c5518jsn3eff5e9368d8',
-//           'X-RapidAPI-Host': 'open-weather-map27.p.rapidapi.com'
-//         },
-//       });
-
-//       return data;
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+export const getWeatherData = async (lat, lng) => {
+  try {
+    if (lat && lng) {
+      const { data } = await axios.get(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lng}&exclude=minutely,hourly,daily,alerts&appid=b696e77f13c812a5dddd5b7f2cddfebf`);
+      return data;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
