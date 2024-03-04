@@ -41,7 +41,11 @@ export default function NavBar() {
   return (
     <div className="nav">
       <nav className="navbar">
-        <img src="../public/images/logo.jpg" alt="logo" className="logo"></img>
+        <img
+          src="../public/images/Travel_App__1_-removebg-preview.png"
+          alt="logo"
+          className="logo"
+        ></img>
         <ul className="nav-link">
           {!isSignedIn ? (
             <>
@@ -52,10 +56,10 @@ export default function NavBar() {
                 <li>Support</li>
               </Link>
               <Link to="/SignUp">
-                <li>Sign Up</li>
+                <li className="btn-s">Sign Up</li>
               </Link>
               <Link to="/SignIn">
-                <li>Sign In</li>
+                <li className="btn-s">Sign In</li>
               </Link>
             </>
           ) : (
@@ -72,7 +76,7 @@ export default function NavBar() {
               <Link to="/Map">
                 <li>Explore</li>
               </Link>
-              <li onClick={handleSignOut} className="signout">
+              <li onClick={handleSignOut} className="btn-s">
                 Sign Out
               </li>
             </>
