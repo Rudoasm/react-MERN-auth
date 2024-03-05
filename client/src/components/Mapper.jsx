@@ -15,18 +15,8 @@ function SetViewOnClick({ coords }) {
   }, [coords, map]);
   return null;
 }
-function WeatherIcon({ lat, lon }) {
+function WeatherIcon({ lat, lon, weatherData }) {
   const map = useMap();
-  const [weatherData, setWeatherData] = useState(null);
-
-  useEffect(() => {
-    const fetchWeatherData = async () => {
-      const data = await getWeatherData(lat, lon);
-      setWeatherData(data);
-    };
-
-    fetchWeatherData();
-  }, [lat, lon]);
 
   useEffect(() => {
     if (weatherData) {
@@ -70,7 +60,8 @@ export default function Mapper({
   places,
   childClicked,
   setChildClicked,
-  weatherData,
+  weatherData
+
 }) {
   const MapEvents = () => {
     const map = useMapEvents({
@@ -126,7 +117,7 @@ export default function Mapper({
               >
                 <Popup>{place.name}</Popup>
               </Marker>
-              <WeatherIcon key={i} lat={place.latitude} lon={place.longitude} />
+              <WeatherIcon key={i} lat={place.latitude} lon={place.longitude} weatherData={weatherData} />
             </>
           ) : null
         )}
