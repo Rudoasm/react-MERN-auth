@@ -33,10 +33,11 @@ export const getplacedata = async (type, sw, ne) => {
 export const getWeatherData = async (lat, lng) => {
   try {
     if (lat && lng) {
-      const { data } = await axios.get(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lng}&exclude=minutely,hourly,daily,alerts&appid=b696e77f13c812a5dddd5b7f2cddfebf`);
+      const { data } = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=b696e77f13c812a5dddd5b7f2cddfebf`);
       return data;
     }
   } catch (error) {
     console.log(error);
   }
 };
+

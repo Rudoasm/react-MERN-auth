@@ -7,11 +7,45 @@ import "leaflet.markercluster/dist/leaflet.markercluster";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 
+
 function SetViewOnClick({ coords }) {
   const map = useMap();
   useEffect(() => {
     map.setView(coords);
   }, [coords, map]);
+  return null;
+}
+function WeatherIcon({ lat, lon }) {
+  const map = useMap();
+  const [weatherData, setWeatherData] = useState(null);
+
+  useEffect(() => {
+    const fetchWeatherData = async () => {
+      const data = await getWeatherData(lat, lon);
+      setWeatherData(data);
+    };
+
+    fetchWeatherData();
+  }, [lat, lon]);
+
+  useEffect(() => {
+    if (weatherData) {
+      let iconCode = weatherData.weather[0].icon;
+      let iconUrl = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
+
+      const icon = new L.Icon({
+        iconUrl: iconUrl,
+        iconSize: [50, 50], // size of the icon
+      });
+
+      const marker = L.marker([lat, lon], { icon: icon }).addTo(map);
+
+      return () => {
+        map.removeLayer(marker);
+      };
+    }
+  }, [map, lat, lon, weatherData]);
+
   return null;
 }
 
@@ -70,6 +104,7 @@ export default function Mapper({
 
     return null;
   }
+
   return (
     <div style={{ height: "400px", width: "100%" }}>
       <MapContainer center={coords} zoom={13}>
@@ -83,22 +118,19 @@ export default function Mapper({
 
         {places.map((place, i) =>
           place.latitude && place.longitude ? (
-            <Marker
-              key={i}
-              position={[place.latitude, place.longitude]}
-              eventHandlers={{ click: () => setChildClicked(i) }}
-            >
-              <Popup>{place.name}</Popup>
-            </Marker>
+            <>
+              <Marker
+                key={i}
+                position={[place.latitude, place.longitude]}
+                eventHandlers={{ click: () => setChildClicked(i) }}
+              >
+                <Popup>{place.name}</Popup>
+              </Marker>
+              <WeatherIcon key={i} lat={place.latitude} lon={place.longitude} />
+            </>
           ) : null
         )}
         <MarkerCluster places={places} />
-     
-        {weatherData?.list?.length && weatherData.list.map((data, i) => (
-          <div key={i} lat={data.coord.lat} lng={data.coord.lon}>
-            <img src={`http://openweathermap.org/img/w/${data.weather[0].icon}.png`} height="70px" />
-          </div>
-        ))}
       </MapContainer>
     </div>
   );
