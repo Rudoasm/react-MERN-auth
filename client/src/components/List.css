@@ -1,0 +1,9 @@
+.header {
+  position: sticky;
+  top: 0;
+  background-color: white; /* or any color you prefer */
+  z-index: 1000; /* to make sure it stays on top of other elements */
+  padding: 10px; /* optional, for some spacing */
+  display: flex;
+  justify-content: space-be;
+}

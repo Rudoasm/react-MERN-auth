@@ -16,12 +16,34 @@ function Questionnaire() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // handle form for the submission logic must come here, such as sending the data to a server or performing validation. still in work
-    console.log(formData);
+    try {
+      setLoading(true);
+      setError(false);
+      const res = await fetch("/API/auth/signUp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...formData, questionnaire: formData }),
+      });
+  
+      const data = await res.json();
+      console.log(data);
+  
+      setLoading(false);
+      if (data.success === false) {
+        setError(true);
+        return;
+      }
+      navigate("/SignIn");
+    } catch (error) {
+      setLoading(false);
+      setError(true);
+    }
   };
-
+  
   return (
     <form onSubmit={handleSubmit}>
       <div>

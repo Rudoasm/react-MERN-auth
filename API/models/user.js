@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema(
-    // rules for the model
   {
     username: {
       type: String,
@@ -17,11 +16,14 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    
+    questionnaire: {
+      type: Object,
+      required: false,
+    },
   },
   { timestamps: true }
-//   mongodb adds two other info for each user
 );
+
 
 const User = mongoose.model('User', userSchema);
 // User is the name of the modul and must be capital. added auto in mongodb

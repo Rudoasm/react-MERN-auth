@@ -2,8 +2,7 @@ import React, { useState, useEffect, createRef } from "react";
 import PlaceDetails from "./PlaceDetails";
 import "./List.css";
 
-const List = ({ places, childClicked , type, setType, rating, setRating,}) => {
-  
+const List = ({ places, childClicked, type, setType, rating, setRating }) => {
   const [elRefs, setElRefs] = useState([]);
   const [loading, setLoading] = useState(false); // Add this line
 
@@ -30,7 +29,8 @@ const List = ({ places, childClicked , type, setType, rating, setRating,}) => {
         <div>Loading...</div> // This will be displayed while loading
       ) : (
         <>
-          <h4>Food & Dining around you</h4>
+        <div className="header">
+          
           <div>
             <label htmlFor="type">Type</label>
             <select
@@ -44,7 +44,7 @@ const List = ({ places, childClicked , type, setType, rating, setRating,}) => {
               <option value="attractions">Attractions</option>
             </select>
           </div>
-          <div>
+          <div className="stickey">
             <label htmlFor="rating">Rating</label>
             <select
               id="rating"
@@ -57,6 +57,7 @@ const List = ({ places, childClicked , type, setType, rating, setRating,}) => {
               <option value="4">Above 4.0</option>
               <option value="4.5">Above 4.5</option>
             </select>
+          </div>
           </div>
 
           <div className="list">
