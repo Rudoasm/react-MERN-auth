@@ -16,10 +16,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    questionnaire: {
-      type: Object,
-      required: false,
-    },
+  
   },
   { timestamps: true }
 );
@@ -30,3 +27,4 @@ const User = mongoose.model('User', userSchema);
 
 
 export default User;
+

@@ -10,10 +10,13 @@ import Support from "./pages/Support";
 import ItineraryGenerated from "./pages/ItineraryGenerated";
 import CurrencyConvertor from "./pages/CurrencyConvertor";
 import Map from "./pages/Map";
+// import { MyProvider } from '../src/pages/context.js';
 
 export default function App() {
   return (
+    // <MyProvider>
     <Router>
+        
      <NavBar/>
 
       <Routes>
@@ -30,5 +33,6 @@ export default function App() {
       </Routes>
 
     </Router>
+    // </MyProvider>
   );
 }

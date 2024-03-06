@@ -1,49 +1,58 @@
-import React, { useState } from "react";
+import { useRef, useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
-import "./Questionairre.css"
+import "./Questionairre.css";
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import {
+  updateUserStart,
+  updateUserSuccess,
+  updateUserFailure,
+} from '../redux/User/userSlice';
+
+
+
 
 function Questionnaire() {
+  const { currentUser, loading, error } = useSelector((state) => state.user);// Assuming you have useSelector imported from 
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
-    location: "",
-    estimatedBudget: "",
-    ageCategory: "",
-    timeFrame: "",
-    travelingCount: "",
+    location: currentUser.questionnaire.location || "",
+    estimatedBudget: currentUser.questionnaire.estimatedBudget || "",
+    fromDate: currentUser.questionnaire.fromDate || new Date(),
+    toDate: currentUser.questionnaire.toDate || new Date(),
+    timeFrame: currentUser.questionnaire.timeFrame || "",
+    travelingCount: currentUser.questionnaire.travelingCount || "",
   });
 
+
+
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
-      setError(false);
-      const res = await fetch("/API/auth/signUp", {
-        method: "POST",
+      dispatch(updateUserStart());
+      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ ...formData, questionnaire: formData }),
+        body: JSON.stringify(formData),
       });
-  
       const data = await res.json();
-      console.log(data);
-  
-      setLoading(false);
       if (data.success === false) {
-        setError(true);
+        dispatch(updateUserFailure(data));
         return;
       }
-      navigate("/SignIn");
+      dispatch(updateUserSuccess(data));
+      navigate("/SignIn"); // Assuming you have navigate imported from '@reach/router'
     } catch (error) {
-      setLoading(false);
-      setError(true);
+      dispatch(updateUserFailure(error));
     }
   };
-  
+
   return (
     <form onSubmit={handleSubmit}>
       <div>
