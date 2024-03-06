@@ -1,58 +1,43 @@
-import { useRef, useState, useEffect } from 'react';
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./Questionairre.css";
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import {
-  updateUserStart,
-  updateUserSuccess,
-  updateUserFailure,
-} from '../redux/User/userSlice';
-
-
-
+import "./Questionairre.css"
+import axios from 'axios';
 
 function Questionnaire() {
-  const { currentUser, loading, error } = useSelector((state) => state.user);// Assuming you have useSelector imported from 
-  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
-    location: currentUser.questionnaire.location || "",
-    estimatedBudget: currentUser.questionnaire.estimatedBudget || "",
-    fromDate: currentUser.questionnaire.fromDate || new Date(),
-    toDate: currentUser.questionnaire.toDate || new Date(),
-    timeFrame: currentUser.questionnaire.timeFrame || "",
-    travelingCount: currentUser.questionnaire.travelingCount || "",
+    location: "",
+    estimatedBudget: "",
+    TypeofTrip: "",
+    fromDate: "",
+    toDate:"",
+    travelingCount: "",
   });
 
-
-
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      dispatch(updateUserStart());
-      const res = await fetch(`/api/user/update/${currentUser._id}`, {
-        method: 'POST',
+      const response = await fetch("/API/auth/saveItinerary", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
-      const data = await res.json();
-      if (data.success === false) {
-        dispatch(updateUserFailure(data));
-        return;
-      }
-      dispatch(updateUserSuccess(data));
-      navigate("/SignIn"); // Assuming you have navigate imported from '@reach/router'
+  
+      const data = await response.json(); // Parse the response
+      console.log('Itinerary saved successfully:', data);
+      // Optionally display success message to the user
     } catch (error) {
-      dispatch(updateUserFailure(error));
+      console.error('Error saving itinerary:', error);
+      // Display error message to the user (e.g., alert, toast notification)
     }
   };
-
+  
   return (
     <form onSubmit={handleSubmit}>
       <div>

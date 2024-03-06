@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import userRoute from "./routes/userRoutes.js";
 // add the extension a end cuz this is backend
 import authRoute from "./routes/userauthRoute.js";
-import cookieParser from "cookie-parser";
+
 dotenv.config();
 
 mongoose
@@ -17,7 +17,10 @@ mongoose
   });
 const app = express();
 app.use(express.json());
-app.use(cookieParser());
+
+
+
+
 app.listen(3000, () => {
   console.log("Listning to server on port 3000...");
 });

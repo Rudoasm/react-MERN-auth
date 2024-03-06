@@ -1,4 +1,5 @@
 import User from "../models/user.js";
+import Itinerary from "../models/Itinerary.js";
 import bcryptjs from "bcryptjs";
 import { errorHandler } from "../utilities/customerror.js";
 import jwt from "jsonwebtoken";
@@ -49,3 +50,16 @@ export const signin = async (req, res, next) => {
 export const signout = (req, res) => {
   res.clearCookie("access_token").status(200).json("Signout successfull!");
 };
+
+
+export const saveitinerary = async (req, res) => {
+  const itinerary = new Itinerary(req.body);
+  try {
+    await itinerary.save();
+    res.status(201).send(itinerary);
+  } catch (error) {
+    console.error(error); // Log the actual error
+    res.status(500).send({ message: 'Error saving itinerary' });
+  }
+};
+
