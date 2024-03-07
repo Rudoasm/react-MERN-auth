@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Questionairre.css";
 // import axios from 'axios';
 
@@ -13,6 +13,7 @@ function Questionnaire() {
     travelingCount: "",
   });
 
+  const navigate = useNavigate(); 
   const handleChange = (e) => {
     if (e.target.id === "fromDate" || e.target.id === "toDate") {
       setFormData({ ...formData, [e.target.id]: new Date(e.target.value) });
@@ -35,10 +36,12 @@ function Questionnaire() {
 
       if (response.status === 200) {
         console.log("Data saved successfully");
-        // You can add more actions here like redirecting the user to another page
+        console.log(data); // Log the server response to the console
+        navigate("/ItineraryGenerated"); // Navigate to the ItineraryGenerated page
       } else {
         console.log("Error saving data");
       }
+      // navigate("/ItineraryGenerated");
     } catch (error) {
       console.error("An error occurred while saving the data:", error);
     }
