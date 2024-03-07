@@ -19,7 +19,7 @@ export default function Support() {
   return (
     <div className="bg-support">
    
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="support-form">
         <textarea
           className="textarea"
           value={query}

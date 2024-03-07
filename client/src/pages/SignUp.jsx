@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link ,useNavigate} from "react-router-dom";
-
+import "./SignUp.css";
 export default function SignUp() {
   //  form data stored in state
 
@@ -49,7 +49,8 @@ export default function SignUp() {
   };
     
   return (
-    <div>
+    <div className="bg-signup">
+      <div className="content-signup">
       <h1>Sign up page</h1>
       <form onSubmit={handleSubmit}>
         <label>
@@ -90,6 +91,7 @@ export default function SignUp() {
         Already have an account? <Link to="/signIn">Sign In</Link>
       </p>
       <p className="error-msg">{error && 'Something went wrong!'}</p>
+    </div>
     </div>
   );
 }

@@ -24,12 +24,17 @@
   border: none;
   border-radius: 20px;
   cursor: pointer;
-  margin-left: 1000px;
 }
 
 .content-btn:hover {
   background-color: #49c549;
 }
+
+.support-form {
+text-align: center;
+}
+
+
 .bg-support {
   background-color: rgb(210, 210, 210);
   background-image: url("../../public/images/pexels-jorge-urosa-9129566.jpg"); /* Background image */

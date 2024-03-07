@@ -45,7 +45,8 @@ export default function SignIn() {
   };
 
   return (
-    <div>
+    <div className="bg-signin">
+      <div className="content-signin">
       <h1>Sign In page</h1>
       <form onSubmit={handleSubmit}>
         <label>
@@ -74,12 +75,13 @@ export default function SignIn() {
         </button>
       </form>
 
-      <p>
+      <p className="signup-link">
         Dont have an account? <Link to="/signUp">Sign Up</Link>
       </p>
       <p className="error-msg">
         {error ? error.message || "Something went wrong!" : ""}
       </p>
+    </div>
     </div>
   );
 }
