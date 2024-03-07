@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./Questionairre.css"
-import axios from 'axios';
+import "./Questionairre.css";
+// import axios from 'axios';
 
 function Questionnaire() {
   const [formData, setFormData] = useState({
@@ -9,17 +9,21 @@ function Questionnaire() {
     estimatedBudget: "",
     TypeofTrip: "",
     fromDate: "",
-    toDate:"",
+    toDate: "",
     travelingCount: "",
   });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    if (e.target.id === "fromDate" || e.target.id === "toDate") {
+      setFormData({ ...formData, [e.target.id]: new Date(e.target.value) });
+    } else {
+      setFormData({ ...formData, [e.target.id]: e.target.value });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const response = await fetch("/API/auth/saveItinerary", {
         method: "POST",
@@ -28,16 +32,18 @@ function Questionnaire() {
         },
         body: JSON.stringify(formData),
       });
-  
-      const data = await response.json(); // Parse the response
-      console.log('Itinerary saved successfully:', data);
-      // Optionally display success message to the user
+
+      if (response.status === 200) {
+        console.log("Data saved successfully");
+        // You can add more actions here like redirecting the user to another page
+      } else {
+        console.log("Error saving data");
+      }
     } catch (error) {
-      console.error('Error saving itinerary:', error);
-      // Display error message to the user (e.g., alert, toast notification)
+      console.error("An error occurred while saving the data:", error);
     }
   };
-  
+
   return (
     <form onSubmit={handleSubmit}>
       <div>
@@ -46,7 +52,6 @@ function Questionnaire() {
           type="text"
           id="location"
           name="location"
-          value={formData.location}
           onChange={handleChange}
         />
       </div>
@@ -56,18 +61,12 @@ function Questionnaire() {
           type="number"
           id="estimatedBudget"
           name="estimatedBudget"
-          value={formData.estimatedBudget}
           onChange={handleChange}
         />
       </div>
       <div>
         <label htmlFor="TypeofTrip">Type of Trip</label>
-        <select
-          id="TypeofTrip"
-          name="TypeofTrip"
-          value={formData.ageCategory}
-          onChange={handleChange}
-        >
+        <select id="TypeofTrip" name="TypeofTrip" onChange={handleChange}>
           <option value="Fun and Friends">Fun and Friends</option>
           <option value="Religious">Religious</option>
           <option value="Family">Family</option>
@@ -83,7 +82,6 @@ function Questionnaire() {
             type="date"
             id="fromDate"
             name="fromDate"
-            value={formData.fromDate}
             onChange={handleChange}
           />
         </div>
@@ -93,7 +91,6 @@ function Questionnaire() {
             type="date"
             id="toDate"
             name="toDate"
-            value={formData.toDate}
             onChange={handleChange}
           />
         </div>
@@ -105,12 +102,11 @@ function Questionnaire() {
           type="number"
           id="travelingCount"
           name="travelingCount"
-          value={formData.travelingCount}
           onChange={handleChange}
         />
       </div>
       <button type="submit" className="content-btn btn">
-        <Link to="/Itineraygenerated">Submit</Link>
+        Submit
       </button>
     </form>
   );

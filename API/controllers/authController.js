@@ -51,15 +51,14 @@ export const signout = (req, res) => {
   res.clearCookie("access_token").status(200).json("Signout successfull!");
 };
 
-
-export const saveitinerary = async (req, res) => {
-  const itinerary = new Itinerary(req.body);
+export const createItinerary = async (req, res, next) => {
+  const { location, estimatedBudget, TypeofTrip, fromDate, toDate, travelingCount } = req.body;
+  const newItinerary = new Itinerary({ location, estimatedBudget, TypeofTrip, fromDate, toDate, travelingCount });
   try {
-    await itinerary.save();
-    res.status(201).send(itinerary);
+    await newItinerary.save();
+    res.status(201).json({ message: "Itinerary created successfully" });
   } catch (error) {
-    console.error(error); // Log the actual error
-    res.status(500).send({ message: 'Error saving itinerary' });
+    next(error);
   }
 };
 

@@ -1,16 +1,35 @@
 import mongoose from 'mongoose';
-const itinerarySchema = new mongoose.Schema(
-    {
-      location: String,
-      estimatedBudget: Number,
-      TypeofTrip: String,
-      fromDate: Date,
-      toDate: Date,
-      travelingCount: Number,
-    },
-    { timestamps: true }
-  );
-  
-  const Itinerary = mongoose.model('Itinerary', itinerarySchema);
 
-  export default Itinerary;
+const userInputSchema = new mongoose.Schema(
+  {
+    location: {
+      type: String,
+      required: true,
+    },
+    estimatedBudget: {
+      type: Number,
+      required: true,
+    },
+    TypeofTrip: {
+      type: String,
+      required: true,
+    },
+    fromDate: {
+      type: Date,
+      required: true,
+    },
+    toDate: {
+      type: Date,
+      required: true,
+    },
+    travelingCount: {
+      type: Number,
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
+
+const UserInput = mongoose.model('UserInput', userInputSchema);
+
+export default UserInput;

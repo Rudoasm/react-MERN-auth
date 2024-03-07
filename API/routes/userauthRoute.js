@@ -1,11 +1,11 @@
 import express from "express";
-import { signup, signin, signout,saveitinerary } from "../controllers/authController.js";
+import { signup, signin, signout,createItinerary } from "../controllers/authController.js";
 const router = express.Router();
 
 router.post("/signUp", signup);
 router.post("/signIn", signin);
 router.get("/signout", signout);
-router.post("/saveItinerary",saveitinerary);
+router.post("/saveItinerary",createItinerary);
 // router.put("/updateQuestionnaire/:id", updateQuestionnaire);
 
 export default router;
