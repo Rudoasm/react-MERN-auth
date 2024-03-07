@@ -27,7 +27,7 @@ export default function App() {
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/Support" element={<Support />} />
         <Route path="/Questionairre" element={<Questionairre />} />
-        <Route path="/Itineraygenerated" element={<ItineraryGenerated />} />
+        <Route path="/ItineraryGenerated" element={<ItineraryGenerated />} />
         <Route path="/CC" element={<CurrencyConvertor />} />
         <Route path="/Map" element={<Map />} />
       </Routes>

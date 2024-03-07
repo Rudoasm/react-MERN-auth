@@ -36,13 +36,9 @@ export default function SignIn() {
         dispatch(signInFailure(data));
         return;
       }
-      //to refresh the page
 
-      // Set isSignedIn to true in localStorage when sign in is successful
       dispatch(signInSuccess(data));
-      navigate("/Home");
-      localStorage.setItem("isSignedIn", "true");
-      window.location.reload();
+      navigate("/Home", { replace: true });
     } catch (error) {
       dispatch(signInFailure(error));
     }

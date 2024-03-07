@@ -24,7 +24,7 @@ function Questionnaire() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await fetch("/API/auth/saveItinerary", {
         method: "POST",
@@ -33,20 +33,20 @@ function Questionnaire() {
         },
         body: JSON.stringify(formData),
       });
-
-      if (response.status === 200) {
+  
+      if (response.ok) {
+        const data = await response.json();
         console.log("Data saved successfully");
-        console.log(data); // Log the server response to the console
-        navigate("/ItineraryGenerated"); // Navigate to the ItineraryGenerated page
+        console.log(data);
+        navigate("/ItineraryGenerated");
       } else {
         console.log("Error saving data");
       }
-      // navigate("/ItineraryGenerated");
     } catch (error) {
       console.error("An error occurred while saving the data:", error);
     }
   };
-
+  
   return (
     <form onSubmit={handleSubmit}>
       <div>

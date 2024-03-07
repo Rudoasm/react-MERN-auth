@@ -17,8 +17,8 @@ export default function Support() {
   };
 
   return (
-    <div>
-      <h3>Write your queries to us</h3>
+    <div className="bg-support">
+   
       <form onSubmit={handleSubmit}>
         <textarea
           className="textarea"
