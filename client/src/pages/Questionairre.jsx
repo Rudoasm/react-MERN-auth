@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Questionairre.css";
 // import axios from 'axios';
 
 function Questionnaire() {
   const [formData, setFormData] = useState({
+    userLocation: "",
     location: "",
     estimatedBudget: "",
     TypeofTrip: "",
@@ -13,7 +14,6 @@ function Questionnaire() {
     travelingCount: "",
   });
 
-  const navigate = useNavigate(); 
   const handleChange = (e) => {
     if (e.target.id === "fromDate" || e.target.id === "toDate") {
       setFormData({ ...formData, [e.target.id]: new Date(e.target.value) });
@@ -24,7 +24,7 @@ function Questionnaire() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const response = await fetch("/API/auth/saveItinerary", {
         method: "POST",
@@ -33,12 +33,10 @@ function Questionnaire() {
         },
         body: JSON.stringify(formData),
       });
-  
-      if (response.ok) {
-        const data = await response.json();
+
+      if (response.status === 200) {
         console.log("Data saved successfully");
-        console.log(data);
-        navigate("/ItineraryGenerated");
+        // You can add more actions here like redirecting the user to another page
       } else {
         console.log("Error saving data");
       }
@@ -46,9 +44,18 @@ function Questionnaire() {
       console.error("An error occurred while saving the data:", error);
     }
   };
-  
+
   return (
     <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="userLocation">Your Location:</label>
+        <input
+          type="text"
+          id="userLocation"
+          name="userLocation"
+          onChange={handleChange}
+        />
+      </div>
       <div>
         <label htmlFor="location">Location:</label>
         <input
@@ -70,12 +77,11 @@ function Questionnaire() {
       <div>
         <label htmlFor="TypeofTrip">Type of Trip</label>
         <select id="TypeofTrip" name="TypeofTrip" onChange={handleChange}>
-          <option value="Fun and Friends">Fun and Friends</option>
-          <option value="Religious">Religious</option>
-          <option value="Family">Family</option>
-
+          <option value="cultural">Cultural</option>
+          <option value="religious">Religious</option>
+          <option value="family">Family</option>
           <option value="Educational">Educational</option>
-          <option value="Leisure">Leisure</option>
+          <option value="shopping">Shopping</option>
         </select>
       </div>
       <div className="dates">

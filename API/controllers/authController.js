@@ -52,8 +52,8 @@ export const signout = (req, res) => {
 };
 
 export const createItinerary = async (req, res, next) => {
-  const { location, estimatedBudget, TypeofTrip, fromDate, toDate, travelingCount } = req.body;
-  const newItinerary = new Itinerary({ location, estimatedBudget, TypeofTrip, fromDate, toDate, travelingCount });
+  const { userLocation, location, estimatedBudget, TypeofTrip, fromDate, toDate, travelingCount } = req.body;
+  const newItinerary = new Itinerary({ userLocation, location, estimatedBudget, TypeofTrip, fromDate, toDate, travelingCount });
   try {
     await newItinerary.save();
     res.status(201).json({ message: "Itinerary created successfully" });
@@ -61,4 +61,3 @@ export const createItinerary = async (req, res, next) => {
     next(error);
   }
 };
-
