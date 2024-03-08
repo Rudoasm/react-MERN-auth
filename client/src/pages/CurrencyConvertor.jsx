@@ -49,6 +49,7 @@ export default function CurrencyConvertor() {
         });
     }
   }, [fromCurrency, toCurrency]);
+
   function handleFromAmountChange(e) {
     const value = parseFloat(e.target.value);
     setAmount(value);
@@ -62,22 +63,28 @@ export default function CurrencyConvertor() {
   }
 
   return (
-    <div className="ccMain">
-      <CurrencyRow
-        currencyOptions={currencyOptions}
-        selectedCurrency={fromCurrency}
-        onChangeCurrency={(e) => setFromCurrency(e.target.value)}
-        onChangeAmount={handleFromAmountChange}
-        amount={fromAmount}
-      />
-      <div>&#8644;</div>
-      <CurrencyRow
-        currencyOptions={currencyOptions}
-        selectedCurrency={toCurrency}
-        onChangeCurrency={(e) => setToCurrency(e.target.value)}
-        onChangeAmount={handleToAmountChange}
-        amount={toAmount}
-      />
+    <div className="bg-cc">
+      <div className="ccMain">
+        <div className="currency-row-container">
+          <CurrencyRow
+            currencyOptions={currencyOptions}
+            selectedCurrency={fromCurrency}
+            onChangeCurrency={(e) => setFromCurrency(e.target.value)}
+            onChangeAmount={handleFromAmountChange}
+            amount={fromAmount}
+          />
+        </div>
+        <div>&#8644;</div>
+        <div className="currency-row-container">
+          <CurrencyRow
+            currencyOptions={currencyOptions}
+            selectedCurrency={toCurrency}
+            onChangeCurrency={(e) => setToCurrency(e.target.value)}
+            onChangeAmount={handleToAmountChange}
+            amount={toAmount}
+          />
+        </div>
+      </div>
     </div>
   );
 }

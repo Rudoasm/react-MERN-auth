@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate} from "react-router-dom";
 import "./Questionairre.css";
 // import axios from 'axios';
 
@@ -13,6 +13,7 @@ function Questionnaire() {
     toDate: "",
     travelingCount: "",
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     if (e.target.id === "fromDate" || e.target.id === "toDate") {
@@ -34,9 +35,10 @@ function Questionnaire() {
         body: JSON.stringify(formData),
       });
 
-      if (response.status === 200) {
+      if (response.ok) {
         console.log("Data saved successfully");
         // You can add more actions here like redirecting the user to another page
+        navigate("/ItineraryGenerated"); 
       } else {
         console.log("Error saving data");
       }

@@ -3,6 +3,7 @@ import Itinerary from "../models/Itinerary.js";
 import bcryptjs from "bcryptjs";
 import { errorHandler } from "../utilities/customerror.js";
 import jwt from "jsonwebtoken";
+import ItineraryGenerated from "../models/generatedItinerary.js";
 // for password encryption
 
 export const signup = async (req, res, next) => {
@@ -46,17 +47,52 @@ export const signin = async (req, res, next) => {
   }
 };
 
-
 export const signout = (req, res) => {
   res.clearCookie("access_token").status(200).json("Signout successfull!");
 };
 
 export const createItinerary = async (req, res, next) => {
-  const { userLocation, location, estimatedBudget, TypeofTrip, fromDate, toDate, travelingCount } = req.body;
-  const newItinerary = new Itinerary({ userLocation, location, estimatedBudget, TypeofTrip, fromDate, toDate, travelingCount });
+  const {
+    userLocation,
+    location,
+    estimatedBudget,
+    TypeofTrip,
+    fromDate,
+    toDate,
+    travelingCount,
+  } = req.body;
+  const newItinerary = new Itinerary({
+    userLocation,
+    location,
+    estimatedBudget,
+    TypeofTrip,
+    fromDate,
+    toDate,
+    travelingCount,
+  });
   try {
     await newItinerary.save();
     res.status(201).json({ message: "Itinerary created successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// ... other actions
+export const retrieveItineraries = async (req, res, next) => {
+  try {
+    console.log("Trying to fetch itineraries...");
+    const itineraries = await ItineraryGenerated.find();
+    console.log("Fetched itineraries:", itineraries);
+
+    // Retrieve all itineraries
+
+    // Flatten the nested structure and extract the content:
+    const itineraryContents = itineraries.flatMap((itinerary) =>
+      itinerary ? (itinerary.itineraries || []).map(item => item.content) : []
+    );
+  
+    res.json(itineraryContents); // Send the flattened content as JSON response
   } catch (error) {
     next(error);
   }

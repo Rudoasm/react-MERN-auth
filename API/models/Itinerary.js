@@ -37,3 +37,4 @@ const userInputSchema = new mongoose.Schema(
 const UserInput = mongoose.model('UserInput', userInputSchema);
 
 export default UserInput;
+
