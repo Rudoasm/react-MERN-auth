@@ -19,7 +19,7 @@
 .content-btn {
   background-color: #e88a31;
   color: white;
-  padding: 14px 20px;
+  padding: 15px;
   margin: 15px 0;
   border: none;
   border-radius: 20px;
@@ -31,9 +31,8 @@
 }
 
 .support-form {
-text-align: center;
+  text-align: center;
 }
-
 
 .bg-support {
   background-color: rgb(210, 210, 210);

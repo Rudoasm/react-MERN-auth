@@ -6,6 +6,7 @@ export default function ItineraryGenerated() {
   const [itineraryContents, setItineraryContents] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     const fetchItineraryData = async () => {
@@ -30,21 +31,29 @@ export default function ItineraryGenerated() {
     fetchItineraryData();
   }, []);
 
-  return (
-    <div className="content-body">
-      <button className="content-btn btn">Edit Itinerary</button>
-      <button className="content-btn btn">Share Itinerary</button>
-      <button className="content-btn btn">Save Itinerary</button>
+  const handleEditClick = () => {
+    setIsEditing(!isEditing);
+  };
 
-      <div className="sub-content">
+  return (
+    <div className="content-body-ig">
+      <div className="button-container-ig">
+        <button className="content-btn btn ig-btn" onClick={handleEditClick}>
+          {isEditing ? "Finish Editing" : "Edit Itinerary"}
+        </button>
+        <button className="content-btn btn ig-btn">Share Itinerary</button>
+        <button className="content-btn btn ig-btn">Save Itinerary</button>
+      </div>
+
+      <div className="sub-content-ig">
         <h3>Your Itinerary</h3>
-        <button className="content-btn btn">Re-generate</button>
 
         {isLoading && <p>Loading itinerary...</p>}
         {error && <p>Error: {error}</p>}
-        {!isLoading && !error && itineraryContents && itineraryContents.length === 0 && (
-          <p>No itineraries found.</p>
-        )}
+        {!isLoading &&
+          !error &&
+          itineraryContents &&
+          itineraryContents.length === 0 && <p>No itineraries found.</p>}
         {!isLoading && !error && itineraryContents && (
           <>
             {" "}
@@ -54,21 +63,22 @@ export default function ItineraryGenerated() {
                 {itineraryContents.map((content, index) => (
                   <li key={index}>
                     <h3>
-                      {content && content.includes("Travel")
-                        ? "Travel"
-                        : `Day ${
-                            content.split(" - ")[0].split("Day ")[1] ||
-                            ""
-                          }` // Handle potential undefined values
+                      {
+                        content && content.includes("Travel")
+                          ? "Travel"
+                          : `Day ${
+                              content.split(" - ")[0].split("Day ")[1] || ""
+                            }` // Handle potential undefined values
                       }
                     </h3>
-                    <p>{content}</p>
+                    <p contentEditable={isEditing}>{content}</p>
                   </li>
                 ))}
               </ul>
             ) : (
               <p>No itineraries found.</p>
             )}
+            <button className="content-btn btn regen-btn">Re-generate</button>
           </>
         )}
       </div>
