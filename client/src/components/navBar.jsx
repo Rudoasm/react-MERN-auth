@@ -4,6 +4,16 @@ import "./navbar.css";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "../redux/User/userSlice";
 
+import { FaSearch } from 'react-icons/fa';
+
+const NOMINATIM_URL = "https://nominatim.openstreetmap.org/search?q=135+pilkington+avenue,+birmingham&format=xml&polygon_kml=1&addressdetails=1";
+
+const params = {
+  q: "",
+  format: "json",
+  addressdetails: "addressdetails",
+};
+
 export default function NavBar() {
   const location = useLocation();
   const dispatch = useDispatch();
@@ -19,6 +29,7 @@ export default function NavBar() {
       console.log(error);
     }
   };
+
 
   return (
     <div className="nav">
@@ -65,7 +76,15 @@ export default function NavBar() {
           )}
         </ul>
         {location.pathname === "/Map" && (
-          <input type="text" placeholder="Explore..." className="mapsearch" />
+         <div className="search-bar">
+         <input
+           type="text"
+           placeholder="Explore..."
+           className="mapsearch"
+          
+         />
+         <FaSearch className="search-icon" /> {/* Adding search icon */}
+       </div>
         )}
       </nav>
     </div>
