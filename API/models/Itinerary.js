@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 const userInputSchema = new mongoose.Schema(
   {
+ 
     userLocation: {
       type: String,
       required: true,

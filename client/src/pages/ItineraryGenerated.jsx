@@ -72,7 +72,7 @@ export default function ItineraryGenerated() {
             {" "}
             {/* Use a fragment to avoid unnecessary DOM nodes */}
             {itineraryContents.length > 0 ? (
-              <ul className="itinerary" ref={itineraryRef}> // Modify this line
+              <ul className="itinerary" ref={itineraryRef}> 
                 {itineraryContents.map((content, index) => (
                   <li key={index}>
                     <h3>

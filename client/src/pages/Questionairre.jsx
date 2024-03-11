@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Questionairre.css";
-// import axios from 'axios';
+
 
 function Questionnaire() {
   const [formData, setFormData] = useState({

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Mapper from "../components/Mapper";
 import List from "../components/List";
 import { getplacedata , getWeatherData} from "./FrontendAPIs/RRApi";
+import { IoMdSearch } from "react-icons/io";
 
 import "./Map.css";
 
@@ -108,7 +109,20 @@ export default function Map() {
 
   return (
     <div className="container">
-      <button onClick={getLocation}>Find near me</button>
+      <div className="button-container">
+      <button onClick={getLocation} className="content-btn btn">Find near me</button>
+      </div>
+      <div className="search-bar">
+    <input
+      type="text"
+      placeholder="Search..."
+      className="search-input"
+      
+    />
+    <IoMdSearch className="search-icon"/>
+
+   
+  </div>
       <div className="list">
         <List
           places={filteredPlaces.length ? filteredPlaces : places}

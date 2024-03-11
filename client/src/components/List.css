@@ -5,5 +5,36 @@
   z-index: 1000; /* to make sure it stays on top of other elements */
   padding: 10px; /* optional, for some spacing */
   display: flex;
-  justify-content: space-be;
+  justify-content: space-around;
+  align-items: center;
+}
+.container {
+  font-family: "Poppins", sans-serif;
+  padding: 20px;
+  overflow-x: hidden; /* Add this line to hide horizontal overflow */
+}
+
+.header label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.type,
+.rating {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+.item {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

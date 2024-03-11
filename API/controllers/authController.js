@@ -62,6 +62,7 @@ export const createItinerary = async (req, res, next) => {
     travelingCount,
   } = req.body;
   const newItinerary = new Itinerary({
+ 
     userLocation,
     location,
     estimatedBudget,
@@ -77,6 +78,7 @@ export const createItinerary = async (req, res, next) => {
     next(error);
   }
 };
+
 
 // ... other actions
 export const retrieveItineraries = async (req, res, next) => {
