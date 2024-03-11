@@ -7,6 +7,29 @@ import "leaflet.markercluster/dist/leaflet.markercluster";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 
+const icon = L.icon({
+  iconUrl: "./placeholder.png",
+  iconSize: [38, 38],
+});
+
+function ResetCenterView(props) {
+  const { selectedPosition } = props;
+  const map = useMap();
+
+  useEffect(() => {
+    if (selectedPosition) {
+      map.setView(
+        L.latLng(selectedPosition?.lat, selectedPosition?.lon),
+        map.getZoom(),
+        {
+          animate: true,
+        }
+      );
+    }
+  }, [selectedPosition]);
+
+  return null;
+}
 
 function SetViewOnClick({ coords }) {
   const map = useMap();

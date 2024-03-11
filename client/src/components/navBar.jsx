@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./navbar.css";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "../redux/User/userSlice";
 
-import { FaSearch } from 'react-icons/fa';
+import { FaSearch } from "react-icons/fa";
 
-const NOMINATIM_URL = "https://nominatim.openstreetmap.org/search?q=135+pilkington+avenue,+birmingham&format=xml&polygon_kml=1&addressdetails=1";
+const NOMINATIM_URL =
+  "https://nominatim.openstreetmap.org/search?q=135+pilkington+avenue,+birmingham&format=xml&polygon_kml=1&addressdetails=1";
 
 const params = {
   q: "",
@@ -29,7 +30,6 @@ export default function NavBar() {
       console.log(error);
     }
   };
-
 
   return (
     <div className="nav">
@@ -76,15 +76,10 @@ export default function NavBar() {
           )}
         </ul>
         {location.pathname === "/Map" && (
-         <div className="search-bar">
-         <input
-           type="text"
-           placeholder="Explore..."
-           className="mapsearch"
-          
-         />
-         <FaSearch className="search-icon" /> {/* Adding search icon */}
-       </div>
+          <div className="search-bar">
+            <input type="text" placeholder="Explore..." className="mapsearch" />
+            <FaSearch className="search-icon" /> {/* Adding search icon */}
+          </div>
         )}
       </nav>
     </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./ItineraryGenerated.css";
 // ... other imports
 
@@ -7,6 +7,8 @@ export default function ItineraryGenerated() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+
+  const itineraryRef = useRef(null); // Add this line
 
   useEffect(() => {
     const fetchItineraryData = async () => {
@@ -35,13 +37,24 @@ export default function ItineraryGenerated() {
     setIsEditing(!isEditing);
   };
 
+  const handleShareClick = () => { // Add this function
+    const itineraryText = itineraryRef.current.innerText;
+    navigator.clipboard.writeText(itineraryText).then(() => {
+      alert('Copied to clipboard'); // Add this line
+    }, (err) => {
+      console.error('Could not copy text: ', err);
+    });
+  };
+
   return (
     <div className="content-body-ig">
       <div className="button-container-ig">
         <button className="content-btn btn ig-btn" onClick={handleEditClick}>
           {isEditing ? "Finish Editing" : "Edit Itinerary"}
         </button>
-        <button className="content-btn btn ig-btn">Share Itinerary</button>
+        <button className="content-btn btn ig-btn" onClick={handleShareClick}> 
+          Share Itinerary
+        </button>
         <button className="content-btn btn ig-btn">Save Itinerary</button>
       </div>
 
@@ -59,7 +72,7 @@ export default function ItineraryGenerated() {
             {" "}
             {/* Use a fragment to avoid unnecessary DOM nodes */}
             {itineraryContents.length > 0 ? (
-              <ul className="itinerary">
+              <ul className="itinerary" ref={itineraryRef}> // Modify this line
                 {itineraryContents.map((content, index) => (
                   <li key={index}>
                     <h3>
