@@ -6,6 +6,8 @@ import { IoMdSearch } from "react-icons/io";
 
 import "./Map.css";
 
+const NOMINATIM_BASE_URL =  "https://nominatim.openstreetmap.org/search?q=135+pilkington+avenue,+birmingham&format=json&polygon_kml=1&addressdetails=1";
+
 export default function Map() {
   const [places, setPlaces] = useState([]);
   const [coords, setCoords] = useState(null); // Initialize to null
@@ -14,6 +16,8 @@ export default function Map() {
   const [filteredPlaces, setFilteredPlaces] = useState([]);
   const [type, setType] = useState("restaurants");
   const [rating, setRating] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedPlace, setSelectedPlace] = useState(null);
   const [weatherData, setWeatherData] = useState([]);
   const [bounds, setBounds] = useState({
     sw: { lat: 0, lng: 0 },
