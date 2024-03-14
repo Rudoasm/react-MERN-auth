@@ -24,7 +24,7 @@ const List = ({ places, childClicked, type, setType, rating, setRating }) => {
   }
 
   return (
-    <div className="container">
+    <div className="container-list">
       {loading ? (
         <div>Loading...</div> // This will be displayed while loading
       ) : (

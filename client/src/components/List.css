@@ -1,14 +1,20 @@
 .header {
   position: sticky;
   top: 0;
-  background-color: white; /* or any color you prefer */
+  /* From https://css.glass */
+background: rgba(255, 255, 255, 0.1);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(0px);
+-webkit-backdrop-filter: blur(0px);
+border: 1px solid rgba(255, 255, 255, 0.3); /* or any color you prefer */
   z-index: 1000; /* to make sure it stays on top of other elements */
   padding: 10px; /* optional, for some spacing */
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
-.container {
+.container-list {
   font-family: "Poppins", sans-serif;
   padding: 20px;
   overflow-x: hidden; /* Add this line to hide horizontal overflow */
