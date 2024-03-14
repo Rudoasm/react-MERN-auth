@@ -2,6 +2,33 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Questionairre.css";
 
+const districts = [
+  "Colombo",
+  "Gampaha",
+  "Kalutara",
+  "Kandy",
+  "Matale",
+  "Nuwara Eliya",
+  "Galle",
+  "Matara",
+  "Hambantota",
+  "Jaffna",
+  "Kilinochchi",
+  "Mannar",
+  "Vavuniya",
+  "Mullaitivu",
+  "Batticaloa",
+  "Ampara",
+  "Trincomalee",
+  "Kurunegala",
+  "Puttalam",
+  "Anuradhapura",
+  "Polonnaruwa",
+  "Badulla",
+  "Moneragala",
+  "Ratnapura",
+  "Kegalle",
+];
 
 function Questionnaire() {
   const [formData, setFormData] = useState({
@@ -16,15 +43,44 @@ function Questionnaire() {
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    if (e.target.id === "fromDate" || e.target.id === "toDate") {
-      setFormData({ ...formData, [e.target.id]: new Date(e.target.value) });
-    } else {
-      setFormData({ ...formData, [e.target.id]: e.target.value });
-    }
-  };
+    let value = e.target.value;
 
+    if (e.target.id === "fromDate" || e.target.id === "toDate") {
+      value = new Date(value);
+    } else if (e.target.id === "estimatedBudget" || e.target.id === "travelingCount") {
+      // Prevent entering negative numbers
+      if (value < 0) {
+        value = "";
+        alert("Please enter a positive number.");
+      }
+    }
+
+    setFormData({ ...formData, [e.target.id]: value });
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const { fromDate, toDate } = formData;
+    const currentDate = new Date();
+
+    // Check if fromDate and toDate are in the past
+    if (fromDate && new Date(fromDate) < currentDate) {
+      alert("Please select a 'From' date in the present or future.");
+      return;
+    }
+
+    if (toDate && new Date(toDate) < currentDate) {
+      alert("Please select a 'To' date in the present or future.");
+      return;
+    }
+
+    // Check if fromDate is after toDate
+    if (fromDate && toDate && new Date(fromDate) > new Date(toDate)) {
+      alert(
+        "Please select valid dates. 'From' date should be before 'To' date."
+      );
+      return;
+    }
 
     try {
       const response = await fetch("/API/auth/saveItinerary", {
@@ -52,22 +108,26 @@ function Questionnaire() {
       <div className="content-q">
         <form onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="userLocation">Your Location:</label>
-            <input
-              type="text"
-              id="userLocation"
-              name="userLocation"
-              onChange={handleChange}
-            />
+          <label htmlFor="location">Your Location:</label>
+            <select id="location" name="location" onChange={handleChange}>
+              <option value="">Select a location</option>
+              {districts.map((district, index) => (
+                <option key={index} value={district}>
+                  {district}
+                </option>
+              ))}
+            </select>
           </div>
           <div>
             <label htmlFor="location">Location:</label>
-            <input
-              type="text"
-              id="location"
-              name="location"
-              onChange={handleChange}
-            />
+            <select id="location" name="location" onChange={handleChange}>
+              <option value="">Select a location</option>
+              {districts.map((district, index) => (
+                <option key={index} value={district}>
+                  {district}
+                </option>
+              ))}
+            </select>
           </div>
           <div>
             <label htmlFor="estimatedBudget">Estimated Budget:</label>
