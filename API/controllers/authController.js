@@ -84,7 +84,7 @@ export const createItinerary = async (req, res, next) => {
 export const retrieveItineraries = async (req, res, next) => {
   try {
     console.log("Trying to fetch itineraries...");
-    const itineraries = await ItineraryGenerated.find();
+    const itineraries = await ItineraryGenerated.find().sort({_id: -1}).limit(1);
     console.log("Fetched itineraries:", itineraries);
 
     // Retrieve all itineraries
