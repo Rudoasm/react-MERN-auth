@@ -1,7 +1,7 @@
 import React from "react";
 import "./PlaceDetails.css";
 import { AiOutlineHome, AiOutlinePhone } from "react-icons/ai";
-import { FaStar } from "react-icons/fa";
+
 
 const PlaceDetails = ({ place, selected, refProp }) => {
   if (selected)
@@ -37,7 +37,7 @@ const PlaceDetails = ({ place, selected, refProp }) => {
         <div className="card-reviews">
           {place.num_reviews} review{place.num_reviews > 1 && "s"}
         </div>
-        <div className="card-price">Price: {place.price_level}</div>
+     
         <div className="card-ranking">Ranking: {place.ranking}</div>
 
         {place?.cuisine?.map(({ name }) => (

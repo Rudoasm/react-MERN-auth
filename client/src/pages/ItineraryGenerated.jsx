@@ -55,7 +55,7 @@ export default function ItineraryGenerated() {
         <button className="content-btn btn ig-btn" onClick={handleShareClick}> 
           Share Itinerary
         </button>
-        <button className="content-btn btn ig-btn">Save Itinerary</button>
+   
       </div>
 
       <div className="sub-content-ig">

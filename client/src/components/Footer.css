@@ -1,21 +1,30 @@
 /* Footer.css */
 
 .footer-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 3.5rem;
-    background-color: #6c757d;
-    color: #fff;
-    padding: 0 2rem;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    font-size: 14px;
-  }
-  
-  .footer-container div:nth-child(2) {
-    margin-left: auto;
-    margin-right: 20px;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: auto;
+  background-color: #000000;
+  color: #fff;
+  padding-bottom: 2rem;
+  width: 100%;
+  font-size: 14px;
+}
+
+.footer-container div {
+  margin-bottom: 0.5rem;
+}
+
+.copyright:before {
+  content: "\00a9";
+}
+.logo-footer {
+  width: 80px;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
