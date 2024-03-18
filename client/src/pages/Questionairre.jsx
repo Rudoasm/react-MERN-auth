@@ -41,6 +41,7 @@ function Questionnaire() {
     travelingCount: "",
   });
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     let value = e.target.value;
@@ -59,6 +60,7 @@ function Questionnaire() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     const { fromDate, toDate } = formData;
     const currentDate = new Date();
@@ -100,6 +102,8 @@ function Questionnaire() {
       }
     } catch (error) {
       console.error("An error occurred while saving the data:", error);
+    }finally {
+      setIsLoading(false); // Set loading to false after the request is done
     }
   };
 
@@ -178,8 +182,8 @@ function Questionnaire() {
               onChange={handleChange}
             />
           </div>
-          <button type="submit" className="content-btn btn">
-            Submit
+          <button type="submit" className="content-btn btn" disabled={isLoading}>
+            {isLoading ? 'Crafting Your Itinerary...' : 'Submit'}
           </button>
         </form>
       </div>
