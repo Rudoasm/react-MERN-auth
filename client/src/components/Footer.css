@@ -1,0 +1,21 @@
+/* Footer.css */
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 3.5rem;
+    background-color: #6c757d;
+    color: #fff;
+    padding: 0 2rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-size: 14px;
+  }
+  
+  .footer-container div:nth-child(2) {
+    margin-left: auto;
+    margin-right: 20px;
+  }
+  

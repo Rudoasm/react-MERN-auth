@@ -107,28 +107,28 @@ function Questionnaire() {
     <div className="bg-q">
       <div className="content-q">
         <form onSubmit={handleSubmit}>
-          <div>
-          <label htmlFor="location">Your Location:</label>
-            <select id="location" name="location" onChange={handleChange}>
-              <option value="">Select a location</option>
-              {districts.map((district, index) => (
-                <option key={index} value={district}>
-                  {district}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label htmlFor="location">Location:</label>
-            <select id="location" name="location" onChange={handleChange}>
-              <option value="">Select a location</option>
-              {districts.map((district, index) => (
-                <option key={index} value={district}>
-                  {district}
-                </option>
-              ))}
-            </select>
-          </div>
+        <div>
+          <label htmlFor="userLocation">Your Location:</label>
+          <select id="userLocation" name="userLocation" onChange={handleChange}>
+            <option value="">Select a location</option>
+            {districts.map((district, index) => (
+              <option key={index} value={district}>
+                {district}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label htmlFor="location">Location:</label>
+          <select id="location" name="location" onChange={handleChange}>
+            <option value="">Select a location</option>
+            {districts.map((district, index) => (
+              <option key={index} value={district}>
+                {district}
+              </option>
+            ))}
+          </select>
+        </div>
           <div>
             <label htmlFor="estimatedBudget">Estimated Budget:</label>
             <input

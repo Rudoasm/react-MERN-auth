@@ -10,7 +10,7 @@ import Support from "./pages/Support";
 import ItineraryGenerated from "./pages/ItineraryGenerated";
 import CurrencyConvertor from "./pages/CurrencyConvertor";
 import Map from "./pages/Map";
-// import { MyProvider } from '../src/pages/context.js';
+import Footer from "./components/Footer";
 
 export default function App() {
   return (
@@ -31,6 +31,7 @@ export default function App() {
         <Route path="/CC" element={<CurrencyConvertor />} />
         <Route path="/Map" element={<Map />} />
       </Routes>
+      <Footer/>
 
     </Router>
     // </MyProvider>
