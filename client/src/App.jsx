@@ -11,7 +11,7 @@ import ItineraryGenerated from "./pages/ItineraryGenerated";
 import CurrencyConvertor from "./pages/CurrencyConvertor";
 import Map from "./pages/Map";
 import Footer from "./components/Footer";
-import withAuth from "./components/withAuth";
+import withAuth from "./components/withAuth"; // HOC 
 
 const AuthenticatedHome = withAuth(Home);
 const AuthenticatedSupport = withAuth(Support);

@@ -26,9 +26,12 @@
 }
 
 .sub-content-ig {
-  width: 70%;
+  width: 75%;
+  height: 50%;
+  overflow-y: scroll;
+  padding: 25px;
   position: absolute;
-  top: 120px;
+  top: 100px;
 
   display: flex;
   flex-direction: column;
