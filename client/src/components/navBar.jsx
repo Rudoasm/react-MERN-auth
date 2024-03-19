@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./navbar.css";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "../redux/User/userSlice";
+import { FaUserCircle } from "react-icons/fa";
 
 export default function NavBar() {
   const location = useLocation();
@@ -58,9 +59,11 @@ export default function NavBar() {
               <Link to="/Map">
                 <li>Explore</li>
               </Link>
-              <li onClick={handleSignOut} className="btn-s">
-                Sign Out
-              </li>
+              <Link to="/Profile">
+                <li>
+                  <FaUserCircle />
+                </li>
+              </Link>
             </>
           )}
         </ul>

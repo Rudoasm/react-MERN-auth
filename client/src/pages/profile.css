@@ -1,0 +1,6 @@
+.profile-bg{
+    background-image: url("../../public/images/Craft\ Your\ Dream\ Adventure\ \(3\).png"); /* Background image */
+    background-size: cover; /* Adjust as needed */
+    background-position: center; /* Adjust as needed */
+    height: 100vh;
+}

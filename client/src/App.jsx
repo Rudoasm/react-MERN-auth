@@ -11,9 +11,11 @@ import ItineraryGenerated from "./pages/ItineraryGenerated";
 import CurrencyConvertor from "./pages/CurrencyConvertor";
 import Map from "./pages/Map";
 import Footer from "./components/Footer";
+import profile from "./pages/profile";
 import withAuth from "./components/withAuth"; // HOC 
 
 const AuthenticatedHome = withAuth(Home);
+const Authenticatedprofile = withAuth(profile);
 const AuthenticatedSupport = withAuth(Support);
 const AuthenticatedQuestionairre = withAuth(Questionairre);
 const AuthenticatedItineraryGenerated = withAuth(ItineraryGenerated);
@@ -37,6 +39,7 @@ export default function App() {
           element={<AuthenticatedItineraryGenerated />}
         />
         <Route path="/CC" element={<AuthenticatedCurrencyConvertor />} />
+        <Route path="/profile" element={<Authenticatedprofile />} />
         <Route path="/Map" element={<AuthenticatedMap />} />
       </Routes>
       <Footer />
